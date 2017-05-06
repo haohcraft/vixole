@@ -20,6 +20,8 @@
     "react/forbid-prop-types": "off",
     "react/jsx-space-before-closing": "off",
     "react/jsx-tag-spacing": "off",
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
     "react/prop-types": [2, { ignore: [], customValidators: [] }],
     "react/jsx-no-duplicate-props": [0, { ignoreCase: false }],
     "max-len": [2, 120, 4, {"ignoreUrls": true}],
@@ -28,7 +30,12 @@
     "no-plusplus": "off",
     "import/prefer-default-export": "off",
     "global-require": "off",
-     "indent": [2, 4, {"SwitchCase": 1}],
+    "indent": [2, 4, {"SwitchCase": 1}],
+    "comma-dangle": 0,  // not sure why airbnb turned this on. gross!
+    //Temporarirly disabled due to a possible bug in babel-eslint (todomvc example)
+	"block-scoped-var": 0,
+	// Temporarily disabled for test/* until babel/babel-eslint#33 is resolved
+	"padded-blocks": 0
   },
   "env": {
     "browser": true,

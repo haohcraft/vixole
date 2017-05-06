@@ -595,6 +595,10 @@ babel-plugin-transform-flow-strip-types@^6.21.0, babel-plugin-transform-flow-str
     babel-plugin-syntax-flow "^6.18.0"
     babel-runtime "^6.22.0"
 
+babel-plugin-transform-inline-environment-variables@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-inline-environment-variables/-/babel-plugin-transform-inline-environment-variables-0.0.2.tgz#1372475c6c87f3c4ce6046587730ee041bc784b9"
+
 babel-plugin-transform-object-assign@^6.5.0:
   version "6.22.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-object-assign/-/babel-plugin-transform-object-assign-6.22.0.tgz#f99d2f66f1a0b0d498e346c5359684740caa20ba"
@@ -3357,6 +3361,23 @@ react-devtools-core@^2.0.8:
   dependencies:
     shell-quote "^1.6.1"
     ws "^2.0.3"
+
+react-native-animatable@^1.1.0:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.1.1.tgz#00ddc72985f62f62a11a505abb1a06e77a92cd8a"
+
+react-native-blur@~1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-blur/-/react-native-blur-1.0.1.tgz#c81e48f631489a87a86a0c58674f6283d7dc15a7"
+
+react-native-ui-lib@^1.0.32:
+  version "1.0.32"
+  resolved "https://registry.yarnpkg.com/react-native-ui-lib/-/react-native-ui-lib-1.0.32.tgz#1e0f11d11d35fd467c665a196732f06b53eb56e5"
+  dependencies:
+    babel-plugin-transform-inline-environment-variables "^0.0.2"
+    lodash "^4.0.0"
+    react-native-animatable "^1.1.0"
+    react-native-blur "~1.0.0"
 
 react-native@0.44.0:
   version "0.44.0"
