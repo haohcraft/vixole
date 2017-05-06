@@ -1,12 +1,18 @@
 
 {
   "parser": "babel-eslint",
-  "plugins": ["react-native"],
+  "plugins": [
+  	"react-native",
+  	"react"
+  ],
   "extends": [
-    "airbnb"
+    "airbnb-base"
   ],
   "rules": {
     "object-curly-spacing": "off",
+    "react-native/no-inline-styles": 2,
+    "react-native/no-unused-styles": 2,
+    "react-native/no-color-literals": 2,
     "react/prefer-stateless-function": "off",
     "react/jsx-filename-extension": "off",
     "react/require-default-props": "off",
@@ -14,13 +20,15 @@
     "react/forbid-prop-types": "off",
     "react/jsx-space-before-closing": "off",
     "react/jsx-tag-spacing": "off",
+    "react/prop-types": [2, { ignore: [], customValidators: [] }],
+    "react/jsx-no-duplicate-props": [0, { ignoreCase: false }],
     "max-len": [2, 120, 4, {"ignoreUrls": true}],
     "class-methods-use-this": "off",
     "arrow-body-style": "off",
     "no-plusplus": "off",
     "import/prefer-default-export": "off",
     "global-require": "off",
-    "consistent-return": "off"
+     "indent": [2, 4, {"SwitchCase": 1}],
   },
   "env": {
     "browser": true,
