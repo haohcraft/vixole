@@ -9,7 +9,8 @@
     "airbnb-base"
   ],
   "rules": {
-    "object-curly-spacing": "off",
+    "space-in-parens": 2,
+    "object-curly-spacing": 2,
     "react-native/no-inline-styles": 2,
     "react-native/no-unused-styles": 2,
     "react-native/no-color-literals": 2,
@@ -33,9 +34,12 @@
     "indent": [2, 4, {"SwitchCase": 1}],
     "comma-dangle": 0,  // not sure why airbnb turned this on. gross!
     //Temporarirly disabled due to a possible bug in babel-eslint (todomvc example)
-	"block-scoped-var": 0,
-	// Temporarily disabled for test/* until babel/babel-eslint#33 is resolved
-	"padded-blocks": 0
+    "block-scoped-var": 0,
+    // Temporarily disabled for test/* until babel/babel-eslint#33 is resolved
+    "padded-blocks": 0,
+    "spaced-comment": 0,
+    "no-redeclare": 0,
+    "no-console": 2
   },
   "env": {
     "browser": true,
