@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { get } from 'lodash';
 import {
   View, Text, Button,
   BorderRadiuses
 } from 'react-native-ui-lib';
+import BleActions from '../middlewares/ble/actions';
 
-export default class Onboard extends Component {
-
+class Onboard extends Component {
+    static propTypes = {
+        checkState: PropTypes.func.isRequired
+    }
+    componentWillMount() {
+        this.props.checkState();
+    }
     render() {
         return (
             <View flex paddingH-55 paddingT-120>
@@ -22,3 +31,12 @@ export default class Onboard extends Component {
         );
     }
 }
+
+export default connect(
+    state => ({
+        bleState: get(state, 'ble.bleState')
+    }),
+    {
+        checkState: BleActions.checkState
+    }
+)(Onboard);

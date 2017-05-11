@@ -6,6 +6,8 @@ export const BLE = 'BLE';
 export const ActionTypes = createActionTypes({
     namespace: BLE,
     types: [
+        'CHECK_STATE',
+        'UPDATE_STATE',
         'CREATE_BLE',
         'DESTROY_BLE',
         'START_SCAN',

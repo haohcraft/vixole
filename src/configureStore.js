@@ -3,8 +3,9 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import reducers from './reducers';
+import bleMiddleware from './middlewares/ble';
 
-let middleware = [thunk];
+let middleware = [thunk, bleMiddleware];
 
 if (__DEV__) {
     const logger = createLogger({ collapsed: true });

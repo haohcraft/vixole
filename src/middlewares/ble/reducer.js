@@ -2,21 +2,20 @@ import { pick } from 'lodash';
 import { ActionTypes } from './actions';
 
 const initialState = {
-    devicesMap: {
-        // "0" : { name: "Good", id: '0', rssi: -50, isConnectable: true, serviceUUIDs: [] },
-        // "1" : { name: "Bad", id: '0', rssi: -90, isConnectable: true, serviceUUIDs: [] },
-        // "2" : { name: "Bad", id: '0', rssi: -90, isConnectable: true, serviceUUIDs: [] },
-        // "3" : { name: "Bad", id: '0', rssi: -90, isConnectable: true, serviceUUIDs: [] },
-        // "4" : { name: "Bad", id: '0', rssi: -90, isConnectable: true, serviceUUIDs: [] },
-        // "5" : { name: "Bad", id: '0', rssi: -90, isConnectable: true, serviceUUIDs: [] },
-        // "6" : { name: "Good", id: '0', rssi: -40, isConnectable: true, serviceUUIDs: [] },
-        // "7" : { name: "Good", id: '0', rssi: -30, isConnectable: true, serviceUUIDs: [] }
-    },
-    isScanning: false
+    devicesMap: {},
+    isScanning: false,
+    bleState: ''
 };
 
 const bleReducer = (state = initialState, action = {}) => {
     switch (action.type) {
+        case ActionTypes.UPDATE_STATE: {
+            const { s } = action.payload;
+            return {
+                ...state,
+                bleState: s
+            };
+        }
         case ActionTypes.START_SCAN: {
             return {
                 ...state,

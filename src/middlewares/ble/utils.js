@@ -1,3 +1,5 @@
+import keyMirror from 'keymirror';
+
 export async function fetchServicesAndCharacteristicsForDevice(device) { // eslint-disable-line
     const servicesMap = {};
     const services = await device.services();
@@ -25,3 +27,9 @@ export async function fetchServicesAndCharacteristicsForDevice(device) { // esli
     }
     return servicesMap;
 }
+
+export const BleStateMap = keyMirror({
+    Unknown: null,
+    PoweredOn: null,
+    PoweredOff: null
+});

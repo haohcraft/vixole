@@ -11,6 +11,15 @@ const bleMiddleware = ({ dispatch }) => next => (action) => {
     if (startsWith(action.type, BLE)) {
 
         switch (action.type) {
+            case ActionTypes.CHECK_STATE: {
+                if (!manager) {
+                    manager = new BleManager();
+                }
+                manager.onStateChange((s) => {
+                    dispatch(actions.updateState({ s }));
+                });
+                break;
+            }
             case ActionTypes.CREATE_BLE: {
                 if (!manager) {
                     manager = new BleManager();
