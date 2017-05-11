@@ -1,5 +1,6 @@
-const reducers = (state) => {
-    return state;
-};
+import { combineReducers } from 'redux';
+import bleReducer from './middlewares/ble/reducer';
 
-export default reducers;
+export default combineReducers({
+    ble: bleReducer
+});

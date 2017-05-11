@@ -1,7 +1,8 @@
 # Vixole Doc
 
-### Env
-- react-native: 0.44
+### Setup
+- To setup [react-native-navigation](https://wix.github.io/react-native-navigation/#/installation-ios)
+- To setup [react-native-ble-plx](https://github.com/Polidea/react-native-ble-plx)
 
 ### Run
 
