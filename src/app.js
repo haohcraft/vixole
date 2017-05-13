@@ -15,7 +15,7 @@ Theme.setDefaultThemeStyle(theme);
 const store = configureStore();
 registerScreens(store, Provider);
 
-Navigation.startSingleScreenApp({
-    screen: onBoardNavObj
+Navigation.showModal({
+    screen: 'v.Onboard'
 });
 

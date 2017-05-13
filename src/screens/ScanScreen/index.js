@@ -63,7 +63,8 @@ class ScanScreen extends Component {
 }
 
 export const navObj = {
-    screen: 'v.ScanScreen'
+    screen: 'v.ScanScreen',
+    title: 'Choose VIXOLE'
 };
 
 export default connect(
