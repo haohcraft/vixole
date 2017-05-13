@@ -3,13 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { get, values } from 'lodash';
 import {
-  View, Text
-} from 'react-native-ui-lib';
-import { ListView, RefreshControl } from 'react-native';
+    Screen,
+    ListView,
+    TouchableOpacity,
+    Divider,
+    Text,
+    Row,
+    Icon
+} from '@shoutem/ui';
 
-import ProgressBar from '../../components/ProgressBar';
 import BleActions from '../../middlewares/ble/actions';
-import styles from './style';
 
 class ScanScreen extends Component {
     static propTypes = {
@@ -18,48 +21,32 @@ class ScanScreen extends Component {
         stopScan: PropTypes.func.isRequired,
         devicesMap: PropTypes.object.isRequired
     }
-    constructor(props) {
-        super(props);
-        this.state = {
-            isRefreshing: false
-        };
-    }
     componentWillMount() {
         this.scanDevice();
     }
-    componentWillUpdate() {
-        if (this.state.isRefreshing) {
-            this.setState({ isRefreshing: false });
-        }
-    }
     render() {
-        const ds = new ListView.DataSource({ rowHasChanged: (row1, row2) => row1.id !== row2.id });
         const devices = values(this.props.devicesMap);
-        const dataSource = ds.cloneWithRows(devices);
         return (
-            this.props.isScanning ? <View style={styles.progressBar}><ProgressBar /></View> :
-            <ListView
-                style={styles.container}
-                enableEmptySections
-                dataSource={dataSource}
-                renderRow={rowData => <View key={rowData.id}><Text>{rowData.name}</Text></View>}
-                refreshControl={
-                    <RefreshControl
-                        refreshing={this.state.isRefreshing}
-                        onRefresh={() => this.onRefresh()}
-                        colors={['#EA0000']}
-                        tintColor="white"
-                        title="loading..."
-                        titleColor="white"
-                        progressBackgroundColor="white"
-                    />
-                }
-            />
+            <Screen>
+                <ListView
+                    loading={ this.props.isScanning }
+                    data={ devices }
+                    renderRow={device => this.renderRow(device)}
+                />
+            </Screen>
         );
     }
-    onRefresh() {
-        this.setState({ isRefreshing: true });
-        this.scanDevice();
+    renderRow(device) {
+        return (
+            <TouchableOpacity>
+                <Row styleName="small">
+                    <Icon name="web" />
+                    <Text>{device.name || 'Unknown'}</Text>
+                    <Icon styleName="disclosure" name="right-arrow" />
+                </Row>
+                <Divider styleName="line" />
+            </TouchableOpacity>
+        );
     }
     scanDevice() {
         const self = this;
@@ -68,7 +55,9 @@ class ScanScreen extends Component {
             clearTimeout(this.timeoutId);
         }
         this.timeoutId = setTimeout(() => {
-            self.props.stopScan();
+            if (self.props.isScanning) {
+                self.props.stopScan();
+            }
         }, 1e4);
     }
 }

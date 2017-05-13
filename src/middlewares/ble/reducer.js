@@ -1,10 +1,14 @@
 import { pick } from 'lodash';
 import { ActionTypes } from './actions';
+import { BleStateMap } from './utils';
 
 const initialState = {
-    devicesMap: {},
+    devicesMap: {
+        1: { name: '1_device' },
+        2: { name: '2_device' }
+    },
     isScanning: false,
-    bleState: ''
+    bleState: BleStateMap.PoweredOn
 };
 
 const bleReducer = (state = initialState, action = {}) => {
