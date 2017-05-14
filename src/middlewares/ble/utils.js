@@ -1,4 +1,7 @@
+/* eslint-disable no-unused-vars */
 import keyMirror from 'keymirror';
+import React from 'react';
+import { Linking, Alert } from 'react-native';
 
 export async function fetchServicesAndCharacteristicsForDevice(device) { // eslint-disable-line
     const servicesMap = {};
@@ -33,3 +36,16 @@ export const BleStateMap = keyMirror({
     PoweredOn: null,
     PoweredOff: null
 });
+
+export const askForSwitchOnBle = () => {
+    Alert.alert(
+        'Turn On Bluetooth to Allow "VIXOLE" to Connect to Accessories', '',
+        [
+            {
+                text: 'Settings', onPress: () => Linking.openURL('App-Prefs:root=Bluetooth')
+            }, {
+                text: 'OK'
+            }
+        ]
+    );
+};

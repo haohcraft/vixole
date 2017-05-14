@@ -17,12 +17,21 @@ import BleActions from '../../middlewares/ble/actions';
 class ScanScreen extends Component {
     static propTypes = {
         isScanning: PropTypes.bool.isRequired,
+        isConnectedDevice: PropTypes.bool.isRequired,
         startScan: PropTypes.func.isRequired,
         stopScan: PropTypes.func.isRequired,
+        connectDevice: PropTypes.func.isRequired,
+        navigator: PropTypes.object.isRequired,
         devicesMap: PropTypes.object.isRequired
     }
     componentWillMount() {
         this.scanDevice();
+    }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.isConnectedDevice) {
+            this.props.stopScan();
+            this.props.navigator.dismissModal();
+        }
     }
     render() {
         const devices = values(this.props.devicesMap);
@@ -32,13 +41,18 @@ class ScanScreen extends Component {
                     loading={ this.props.isScanning }
                     data={ devices }
                     renderRow={device => this.renderRow(device)}
+                    onRefresh={() => this.onRefresh()}
                 />
             </Screen>
         );
     }
+    onRefresh() {
+        this.scanDevice();
+    }
     renderRow(device) {
+
         return (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => this.props.connectDevice({ selectedDeviceId: device.id })}>
                 <Row styleName="small">
                     <Icon name="web" />
                     <Text>{device.name || 'Unknown'}</Text>
@@ -50,7 +64,9 @@ class ScanScreen extends Component {
     }
     scanDevice() {
         const self = this;
-        this.props.startScan();
+        if (!this.props.isScanning) {
+            this.props.startScan();
+        }
         if (this.timeoutId) {
             clearTimeout(this.timeoutId);
         }
@@ -70,10 +86,12 @@ export const navObj = {
 export default connect(
     state => ({
         isScanning: get(state, 'ble.isScanning'),
-        devicesMap: get(state, 'ble.devicesMap')
+        devicesMap: get(state, 'ble.devicesMap'),
+        isConnectedDevice: get(state, 'ble.selectedDevice.isConnected')
     }),
     {
         startScan: BleActions.startScan,
-        stopScan: BleActions.stopScan
+        stopScan: BleActions.stopScan,
+        connectDevice: BleActions.connectDevice
     }
 )(ScanScreen);

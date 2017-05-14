@@ -3,12 +3,13 @@ import { ActionTypes } from './actions';
 import { BleStateMap } from './utils';
 
 const initialState = {
-    devicesMap: {
-        1: { name: '1_device' },
-        2: { name: '2_device' }
-    },
+    devicesMap: {},
     isScanning: false,
-    bleState: BleStateMap.PoweredOn
+    bleState: BleStateMap.PoweredOn,
+    selectedDevice: {
+        isConnected: false,
+        id: ''
+    }
 };
 
 const bleReducer = (state = initialState, action = {}) => {
@@ -43,10 +44,23 @@ const bleReducer = (state = initialState, action = {}) => {
                 }
             };
         }
+        case ActionTypes.ON_DISCONNECT_DEVICE: {
+            return {
+                ...state,
+                selectedDevice: {
+                    ...initialState.selectedDevice,
+                }
+            };
+        }
         case ActionTypes.UPDATE_SERVICES: {
             const { deviceId, services } = action.payload;
             return {
                 ...state,
+                selectedDevice: {
+                    ...state.selectedDevice,
+                    isConnected: true,
+                    id: deviceId
+                },
                 devicesMap: {
                     ...state.devicesMap,
                     [deviceId]: {
