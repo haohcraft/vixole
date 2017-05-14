@@ -32,9 +32,13 @@ class ScanScreen extends Component {
                     loading={ this.props.isScanning }
                     data={ devices }
                     renderRow={device => this.renderRow(device)}
+                    onRefresh={() => this.onRefresh()}
                 />
             </Screen>
         );
+    }
+    onRefresh() {
+        this.scanDevice();
     }
     renderRow(device) {
         return (
@@ -50,7 +54,9 @@ class ScanScreen extends Component {
     }
     scanDevice() {
         const self = this;
-        this.props.startScan();
+        if (!this.props.isScanning) {
+            this.props.startScan();
+        }
         if (this.timeoutId) {
             clearTimeout(this.timeoutId);
         }

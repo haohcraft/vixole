@@ -3,10 +3,7 @@ import { ActionTypes } from './actions';
 import { BleStateMap } from './utils';
 
 const initialState = {
-    devicesMap: {
-        1: { name: '1_device' },
-        2: { name: '2_device' }
-    },
+    devicesMap: {},
     isScanning: false,
     bleState: BleStateMap.PoweredOn
 };
