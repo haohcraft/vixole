@@ -13,7 +13,7 @@ import {
 import Colors from '../../theme/colors';
 import { navObj as scanScreenNavObj } from '../Scan';
 import BleActions from '../../middlewares/ble/actions';
-import { BleStateMap } from '../../middlewares/ble/utils';
+import { BleStateMap, askForSwitchOnBle } from '../../middlewares/ble/utils';
 
 import Nav from './Nav';
 
@@ -33,6 +33,11 @@ class Onboard extends Component {
     };
     componentWillMount() {
         this.props.checkState();
+    }
+    componentWillReceiveProps(nextProps) {
+        if (!nextProps.isReady) {
+            askForSwitchOnBle();
+        }
     }
     render() {
         const { isReady } = this.props;
@@ -59,6 +64,8 @@ class Onboard extends Component {
     onPairPress() {
         if (this.props.isReady) {
             this.props.navigator.push(scanScreenNavObj);
+        } else {
+            askForSwitchOnBle();
         }
     }
 }

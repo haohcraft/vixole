@@ -2,7 +2,9 @@ import { startsWith } from 'lodash';
 import { BleManager } from 'react-native-ble-plx';
 
 import actions, { BLE, ActionTypes } from './actions';
-import { fetchServicesAndCharacteristicsForDevice } from './utils';
+import {
+    fetchServicesAndCharacteristicsForDevice
+} from './utils';
 
 let manager = null;
 
