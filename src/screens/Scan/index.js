@@ -17,12 +17,21 @@ import BleActions from '../../middlewares/ble/actions';
 class ScanScreen extends Component {
     static propTypes = {
         isScanning: PropTypes.bool.isRequired,
+        isConnectedDevice: PropTypes.bool.isRequired,
         startScan: PropTypes.func.isRequired,
         stopScan: PropTypes.func.isRequired,
+        connectDevice: PropTypes.func.isRequired,
+        navigator: PropTypes.object.isRequired,
         devicesMap: PropTypes.object.isRequired
     }
     componentWillMount() {
         this.scanDevice();
+    }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.isConnectedDevice) {
+            this.props.stopScan();
+            this.props.navigator.dismissModal();
+        }
     }
     render() {
         const devices = values(this.props.devicesMap);
@@ -41,8 +50,9 @@ class ScanScreen extends Component {
         this.scanDevice();
     }
     renderRow(device) {
+
         return (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => this.props.connectDevice({ selectedDeviceId: device.id })}>
                 <Row styleName="small">
                     <Icon name="web" />
                     <Text>{device.name || 'Unknown'}</Text>
@@ -76,10 +86,12 @@ export const navObj = {
 export default connect(
     state => ({
         isScanning: get(state, 'ble.isScanning'),
-        devicesMap: get(state, 'ble.devicesMap')
+        devicesMap: get(state, 'ble.devicesMap'),
+        isConnectedDevice: get(state, 'ble.selectedDevice.isConnected')
     }),
     {
         startScan: BleActions.startScan,
-        stopScan: BleActions.stopScan
+        stopScan: BleActions.stopScan,
+        connectDevice: BleActions.connectDevice
     }
 )(ScanScreen);

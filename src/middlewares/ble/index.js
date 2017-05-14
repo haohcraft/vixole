@@ -1,4 +1,4 @@
-import { startsWith } from 'lodash';
+import { get, startsWith } from 'lodash';
 import { BleManager } from 'react-native-ble-plx';
 
 import actions, { BLE, ActionTypes } from './actions';
@@ -8,7 +8,7 @@ import {
 
 let manager = null;
 
-const bleMiddleware = ({ dispatch }) => next => (action) => {
+const bleMiddleware = ({ getState, dispatch }) => next => (action) => {
     // If BLE related actions.
     if (startsWith(action.type, BLE)) {
 
@@ -51,7 +51,10 @@ const bleMiddleware = ({ dispatch }) => next => (action) => {
             }
             case ActionTypes.CONNECT_DEVICE: {
                 const { selectedDeviceId } = action.payload;
-                dispatch(actions.stopScan());
+                const isScanning = get(getState(), 'ble.isScanning');
+                if (isScanning) {
+                    dispatch(actions.stopScan());
+                }
                 if (selectedDeviceId && selectedDeviceId.length) {
                     manager.connectToDevice(selectedDeviceId)
                         .then(device => device.discoverAllServicesAndCharacteristics())
@@ -61,6 +64,12 @@ const bleMiddleware = ({ dispatch }) => next => (action) => {
                             services
                         })));
                 }
+                break;
+            }
+            case ActionTypes.DISCONNECT_DEVICE: {
+                const { deviceId } = action.payload;
+                manager.cancelDeviceConnection(deviceId)
+                    .then(() => dispatch(actions.onDisconnectDevice()));
                 break;
             }
             case ActionTypes.WRITE_DEVICE: {
