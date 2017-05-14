@@ -13,7 +13,7 @@ export const themeVariables = {
         fontFamily: 'Rubik-Regular',
         fontStyle: 'normal',
         fontWeight: 'normal',
-        color: '#222222',
+        color: 'red',
         fontSize: 25,
     },
     title: {
@@ -59,7 +59,7 @@ export const themeVariables = {
         color: Colors.white,
         fontSize: 15,
     },
-    navBarIconsColor: Colors.rgba(255, 255, 255, 0.5),
+    navBarIconsColor: Colors.dark10,
     featuredNavBarTitleColor: Colors.white,
     featuredNavBarIconsColor: Colors.rgba(255, 255, 255, 0.5),
 
@@ -89,5 +89,5 @@ export const themeVariables = {
     secondaryButtonBorderColor: Colors.rgba(255, 255, 255, 0.6),
 
     lineColor: Colors.dark30,
-    sectionHeaderBackgroundColor: Colors.dark20,
+    sectionHeaderBackgroundColor: Colors.dark70,
 };

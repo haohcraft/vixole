@@ -3524,7 +3524,7 @@ react-native-transformable-image@shoutem/react-native-transformable-image#7d1539
   dependencies:
     react-native-view-transformer ldn0x7dc/react-native-view-transformer#f7e028b6566022deac4e523052e74c2c63a4af7e
 
-react-native-vector-icons@^4.0.0:
+react-native-vector-icons@^4.0.0, react-native-vector-icons@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-4.1.1.tgz#9ac75bde77d9243346668c51dca7756775428087"
   dependencies:

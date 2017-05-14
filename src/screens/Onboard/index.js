@@ -10,10 +10,12 @@ import {
     Button
 } from '@shoutem/ui';
 
-import Colors from '../theme/colors';
-import { navObj as scanScreenNavObj } from './ScanScreen';
-import BleActions from '../middlewares/ble/actions';
-import { BleStateMap } from '../middlewares/ble/utils';
+import Colors from '../../theme/colors';
+import { navObj as scanScreenNavObj } from '../Scan';
+import BleActions from '../../middlewares/ble/actions';
+import { BleStateMap } from '../../middlewares/ble/utils';
+
+import Nav from './Nav';
 
 const styles = {
     text: {
@@ -39,7 +41,8 @@ class Onboard extends Component {
         });
         return (
             <Screen>
-                <View styleName='fill-parent vertical space-around xl-gutter-left xl-gutter-right'>
+                <Nav onPressClose={() => this.closeOnboard() }/>
+                <View styleName='flexible vertical space-around xl-gutter-left xl-gutter-right'>
                     <Text styleName='medium-wide md-gutter-top'>
                         If you have VIXOLE sneaker, you can pair it with your device here
                     </Text>
@@ -49,6 +52,9 @@ class Onboard extends Component {
                 </View>
             </Screen>
         );
+    }
+    closeOnboard() {
+        this.props.navigator.dismissModal();
     }
     onPairPress() {
         if (this.props.isReady) {
