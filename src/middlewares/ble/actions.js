@@ -16,6 +16,7 @@ export const ActionTypes = createActionTypes({
         'CONNECT_DEVICE',
         'DISCONNECT_DEVICE',
         'ON_DISCONNECT_DEVICE',
+        'REMOVE_DEVICE',
         'UPDATE_SERVICES',
         'WRITE_DEVICE',
         'WRITE_DEVICE_SUCCESS',

@@ -44,11 +44,20 @@ const bleReducer = (state = initialState, action = {}) => {
                 }
             };
         }
-        case ActionTypes.ON_DISCONNECT_DEVICE: {
+        case ActionTypes.REMOVE_DEVICE: {
             return {
                 ...state,
                 selectedDevice: {
                     ...initialState.selectedDevice,
+                }
+            };
+        }
+        case ActionTypes.ON_DISCONNECT_DEVICE: {
+            return {
+                ...state,
+                selectedDevice: {
+                    ...state.selectedDevice,
+                    isConnected: false
                 }
             };
         }
