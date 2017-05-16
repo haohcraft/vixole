@@ -49,3 +49,17 @@ export const askForSwitchOnBle = () => {
         ]
     );
 };
+
+export const askForRemoveDevice = (removeDevice) => {
+    Alert.alert(
+        'Are you sure to remove your VIXOLE sneaker?', '',
+        [
+            {
+                text: 'Sure', onPress: () => removeDevice()
+            }, {
+                text: 'Cancel'
+            }
+        ]
+    );
+};
+

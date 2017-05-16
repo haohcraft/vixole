@@ -66,6 +66,7 @@ const bleMiddleware = ({ getState, dispatch }) => next => (action) => {
                 }
                 break;
             }
+            case ActionTypes.REMOVE_DEVICE:
             case ActionTypes.DISCONNECT_DEVICE: {
                 const { deviceId } = action.payload;
                 manager.cancelDeviceConnection(deviceId)

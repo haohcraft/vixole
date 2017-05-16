@@ -17,6 +17,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Colors from '../../theme/colors';
 import { navObj as onBoardNavObj } from '../Onboard';
 import BleActions from '../../middlewares/ble/actions';
+import { askForRemoveDevice } from '../../middlewares/ble/utils';
 
 /* eslint-disable */
 const image = require('../../assets/images/1_bird.jpg');
@@ -25,7 +26,7 @@ const image = require('../../assets/images/1_bird.jpg');
 class ProfileScreen extends Component {
     static propTypes = {
         navigator: PropTypes.object.isRequired,
-        disconnectDevice: PropTypes.func.isRequired,
+        removeDevice: PropTypes.func.isRequired,
         isConnected: PropTypes.bool.isRequired,
         selectedDevice: PropTypes.object
     };
@@ -54,7 +55,7 @@ class ProfileScreen extends Component {
                 <Row styleName="small">
                     <Icon name="md-bulb" size={ 35 } style={ bulbStyle }/>
                     <Text styleName='md-gutter-left'>{name || 'Unknown'}</Text>
-                    <TouchableOpacity onPress={() => this.props.disconnectDevice({ deviceId: id })}>
+                    <TouchableOpacity onPress={() => this.onPressRemove({ deviceId: id })}>
                         <Icon name="ios-close" size={ 35 }/>
                     </TouchableOpacity>
                 </Row>
@@ -68,6 +69,12 @@ class ProfileScreen extends Component {
                 </Row>
             </TouchableOpacity>
         );
+    }
+
+    onPressRemove({ deviceId }) {
+        askForRemoveDevice(() => {
+            this.props.removeDevice({ deviceId });
+        });
     }
 }
 
@@ -85,6 +92,6 @@ export default connect(
             isConnected
         };
     }, {
-        disconnectDevice: BleActions.disconnectDevice,
+        removeDevice: BleActions.removeDevice,
     }
 )(ProfileScreen);
