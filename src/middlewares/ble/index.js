@@ -4,15 +4,60 @@ import { BleManager } from 'react-native-ble-plx';
 import actions, { BLE, ActionTypes } from './actions';
 import {
     fetchServicesAndCharacteristicsForDevice,
-    askForSwitchOnBle
+    askForSwitchOnBle,
+    BleStateMap
 } from './utils';
 
 let manager = null;
+const deviceDisconnectListeners = {};
+const keepBleOn = (action, bleState) => {
+    switch (action.type) {
+        case ActionTypes.START_SCAN:
+        case ActionTypes.STOP_SCAN:
+        case ActionTypes.CONNECT_DEVICE:
+        case ActionTypes.RE_CONNECT_DEVICE:
+        case ActionTypes.REMOVE_DEVICE:
+        case ActionTypes.DISCONNECT_DEVICE:
+        case ActionTypes.WRITE_DEVICE: {
+            if (bleState !== BleStateMap.PoweredOn) {
+                askForSwitchOnBle();
+                return false;
+            }
+            break;
+        }
+        default: {
+            return true;
+        }
+    }
+    return true;
+};
 
 const bleMiddleware = ({ getState, dispatch }) => next => (action) => {
+    // To connect the device with the ID
+    const connectToDevice = (deviceId) => {
+        if (manager) {
+            manager.connectToDevice(deviceId)
+                .then(d => d.discoverAllServicesAndCharacteristics())
+                .then(d => fetchServicesAndCharacteristicsForDevice(d))
+                .then(services => dispatch(actions.updateServices({
+                    deviceId,
+                    services
+                })), (rejected) => {
+                    console.log('Connect failed: ', rejected.message); // eslint-disable-line
+                    dispatch(actions.onDisconnectDevice());
+                });
+            // To avoid the case where multiple listeners set on the same device
+            if (!deviceDisconnectListeners[deviceId]) {
+                deviceDisconnectListeners[deviceId] = true;
+                manager.onDeviceDisconnected(
+                    deviceId, () => dispatch(actions.onDisconnectDevice())
+                );
+            }
+        }
+    };
+    const bleState = get(getState(), 'ble.bleState');
     // If BLE related actions.
-    if (startsWith(action.type, BLE)) {
-
+    if (startsWith(action.type, BLE) && keepBleOn(action, bleState)) {
         switch (action.type) {
             case ActionTypes.CHECK_STATE: {
                 if (!manager) {
@@ -57,20 +102,7 @@ const bleMiddleware = ({ getState, dispatch }) => next => (action) => {
                     dispatch(actions.stopScan());
                 }
                 if (selectedDeviceId && selectedDeviceId.length) {
-                    manager.connectToDevice(selectedDeviceId)
-                        .then(device => device.discoverAllServicesAndCharacteristics())
-                        .then(device => fetchServicesAndCharacteristicsForDevice(device))
-                        .then(services => dispatch(actions.updateServices({
-                            deviceId: selectedDeviceId,
-                            services
-                        })), (rejected) => {
-                            console.log('Connect failed: ', rejected.message); // eslint-disable-line
-                            dispatch(actions.onDisconnectDevice());
-                        });
-
-                    manager.onDeviceDisconnected(
-                        selectedDeviceId, () => dispatch(actions.onDisconnectDevice())
-                    );
+                    connectToDevice(selectedDeviceId);
                 }
                 break;
             }
@@ -81,23 +113,9 @@ const bleMiddleware = ({ getState, dispatch }) => next => (action) => {
                     manager.startDeviceScan([], null, (error, device) => {
                         if (error && error.code === 102) {
                             manager.stopDeviceScan();
-                            askForSwitchOnBle();
                         } else if (device.id === selectedDeviceId) {
                             manager.stopDeviceScan();
-                            device.connect()
-                                .then(d => d.discoverAllServicesAndCharacteristics())
-                                .then(d => fetchServicesAndCharacteristicsForDevice(d))
-                                .then(services => dispatch(actions.updateServices({
-                                    deviceId: device.id,
-                                    services
-                                })), (rejected) => {
-                                    console.log('Connect failed: ', rejected.message); // eslint-disable-line
-                                    dispatch(actions.onDisconnectDevice());
-                                });
-
-                            manager.onDeviceDisconnected(
-                                device.id, () => dispatch(actions.onDisconnectDevice())
-                            );
+                            connectToDevice(selectedDeviceId);
                         }
                     });
                 }
