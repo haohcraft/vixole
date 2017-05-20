@@ -5,7 +5,7 @@ import { BleStateMap } from './utils';
 const initialState = {
     devicesMap: {},
     isScanning: false,
-    bleState: BleStateMap.PoweredOn,
+    bleState: BleStateMap.PoweredOff,
     selectedDevice: {
         isConnected: false,
         id: ''

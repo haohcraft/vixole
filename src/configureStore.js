@@ -1,7 +1,9 @@
 /* eslint-disable no-undef */
-import { createStore, applyMiddleware } from 'redux';
+import { AsyncStorage } from 'react-native';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
+import { autoRehydrate, persistStore } from 'redux-persist';
 import reducers from './reducers';
 import bleMiddleware from './middlewares/ble';
 
@@ -15,9 +17,14 @@ if (__DEV__) {
 }
 
 export default function configureStore(initialState) {
-    return createStore(
+    const store = createStore(
         reducers,
         initialState,
-        applyMiddleware(...middleware)
+        compose(
+            applyMiddleware(...middleware),
+            autoRehydrate()
+        )
     );
+    persistStore(store, { storage: AsyncStorage });
+    return store;
 }
