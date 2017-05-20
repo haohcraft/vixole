@@ -27,9 +27,14 @@ class ProfileScreen extends Component {
     static propTypes = {
         navigator: PropTypes.object.isRequired,
         removeDevice: PropTypes.func.isRequired,
+        checkState: PropTypes.func.isRequired,
+        reConnectDevice: PropTypes.func.isRequired,
         isConnected: PropTypes.bool.isRequired,
         selectedDevice: PropTypes.object
     };
+    componentWillMount() {
+        this.props.checkState();
+    }
 
     render() {
         return (
@@ -49,15 +54,23 @@ class ProfileScreen extends Component {
         if (this.props.selectedDevice && this.props.selectedDevice.id.length) {
             const { name, id } = this.props.selectedDevice;
             const bulbStyle = {
-                color: this.props.isConnected ? 'black' : Colors.dark40
+                color: this.props.isConnected ? 'black' : Colors.dark70
             };
             return (
                 <Row styleName="small">
                     <Icon name="md-bulb" size={ 35 } style={ bulbStyle }/>
                     <Text styleName='md-gutter-left'>{name || 'Unknown'}</Text>
-                    <TouchableOpacity onPress={() => this.onPressRemove({ deviceId: id })}>
-                        <Icon name="ios-close" size={ 35 }/>
-                    </TouchableOpacity>
+                    {
+                        this.props.isConnected ? (
+                            <TouchableOpacity onPress={() => this.onPressRemove({ deviceId: id })}>
+                                <Icon name="ios-close" size={ 35 }/>
+                            </TouchableOpacity>
+                        ) : (
+                            <TouchableOpacity onPress={() => this.onPressReconnect({ selectedDeviceId: id })}>
+                                <Icon name="ios-refresh" size={ 35 }/>
+                            </TouchableOpacity>
+                        )
+                    }
                 </Row>
             );
         }
@@ -70,7 +83,9 @@ class ProfileScreen extends Component {
             </TouchableOpacity>
         );
     }
-
+    onPressReconnect({ selectedDeviceId }) {
+        this.props.reConnectDevice({ selectedDeviceId });
+    }
     onPressRemove({ deviceId }) {
         askForRemoveDevice(() => {
             this.props.removeDevice({ deviceId });
@@ -93,5 +108,7 @@ export default connect(
         };
     }, {
         removeDevice: BleActions.removeDevice,
+        reConnectDevice: BleActions.reConnectDevice,
+        checkState: BleActions.checkState
     }
 )(ProfileScreen);
