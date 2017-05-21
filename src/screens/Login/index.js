@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { LoginManager } from 'react-native-fbsdk';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {
     Screen,
@@ -34,7 +35,7 @@ export default class LoginScreen extends Component {
         return (
              <Screen>
                 <View styleName='flexible center vertical space-around xl-gutter-left xl-gutter-right'>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.onPressFbLogin()}>
                         <View styleName='horizontal space-around' style={ styles.container }>
                         <Icon name='logo-facebook' size={ 20 } style={ styles.icon }/>
                         <Text style={ styles.link }>Log In With Facebook</Text>
@@ -42,6 +43,21 @@ export default class LoginScreen extends Component {
                     </TouchableOpacity>
                 </View>
             </Screen>
+        );
+    }
+    onPressFbLogin() {
+        LoginManager.logInWithReadPermissions(['public_profile']).then(
+            (result) => {
+                if (result.isCancelled) {
+                    // alert('Login cancelled');
+                } else {
+                    // alert('Login success with permissions: '
+                    //     + result.grantedPermissions.toString());
+                }
+            },
+            (/*error*/) => {
+                // alert('Login fail with error: ' + error);
+            }
         );
     }
 }

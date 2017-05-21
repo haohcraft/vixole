@@ -12,6 +12,9 @@ react-native link
 react-native run-ios
 
 ```
+### Common Issues
 
+- ":CFBundleIdentifier", Does Not Exist
+[here](https://github.com/facebook/react-native/issues/7308)
 
 
