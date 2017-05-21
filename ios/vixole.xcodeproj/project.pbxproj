@@ -1359,7 +1359,7 @@
 				DEVELOPMENT_TEAM = 5W2HKPN6VH;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/../node_modules/react-native-ble-plx/ios/BleClientManager/Carthage/Build/iOS/**",
-					"~/Documents/FacebookSDK/**",
+					"$(SRCROOT)/Frameworks/**",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../node_modules/react-native-navigation/ios/**",
@@ -1390,7 +1390,7 @@
 				DEVELOPMENT_TEAM = 5W2HKPN6VH;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/../node_modules/react-native-ble-plx/ios/BleClientManager/Carthage/Build/iOS/**",
-					"~/Documents/FacebookSDK/**",
+					"$(SRCROOT)/Frameworks/**",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../node_modules/react-native-navigation/ios/**",
