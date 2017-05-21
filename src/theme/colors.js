@@ -2,6 +2,7 @@
 import _ from 'lodash';
 
 class Colors {
+    link = '#0366d6';
     // DARKS
     black = '#000000';
     dark10 = '#111111';
