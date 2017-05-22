@@ -6,8 +6,9 @@ import { createLogger } from 'redux-logger';
 import { autoRehydrate, persistStore } from 'redux-persist';
 import reducers from './reducers';
 import bleMiddleware from './middlewares/ble';
+import authMiddleware from './middlewares/auth';
 
-let middleware = [thunk, bleMiddleware];
+let middleware = [thunk, bleMiddleware, authMiddleware];
 
 if (__DEV__) {
     const logger = createLogger({ collapsed: true });

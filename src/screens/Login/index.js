@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { LoginManager } from 'react-native-fbsdk';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {
     Screen,
@@ -8,6 +9,8 @@ import {
     TouchableOpacity
 } from '@shoutem/ui';
 import Colors from '../../theme/colors';
+
+import authActions from '../../middlewares/auth/actions';
 
 export const navObj = {
     screen: 'v.LoginScreen'
@@ -27,7 +30,11 @@ const styles = {
     }
 };
 
-export default class LoginScreen extends Component {
+class LoginScreen extends Component {
+    static propTypes = {
+        navigator: PropTypes.object,
+        loginWithFb: PropTypes.func.isRequired
+    };
     static navigatorStyle = {
         navBarHidden: true
     };
@@ -46,18 +53,13 @@ export default class LoginScreen extends Component {
         );
     }
     onPressFbLogin() {
-        LoginManager.logInWithReadPermissions(['public_profile']).then(
-            (result) => {
-                if (result.isCancelled) {
-                    // alert('Login cancelled');
-                } else {
-                    // alert('Login success with permissions: '
-                    //     + result.grantedPermissions.toString());
-                }
-            },
-            (/*error*/) => {
-                // alert('Login fail with error: ' + error);
-            }
-        );
+        this.props.loginWithFb();
     }
 }
+
+export default connect(
+    null,
+    {
+        loginWithFb: authActions.loginWithFb
+    }
+)(LoginScreen);

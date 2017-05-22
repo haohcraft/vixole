@@ -9,7 +9,6 @@ import configureStore from './configureStore';
 import { registerScreens } from './screens';
 import { themeVariables } from './theme';
 import { navObj as onBoardNavObj } from './screens/Onboard';
-import { navObj as loginNavObj } from './screens/Login';
 import { iconsLoaded, iconsMap } from './theme/icons';
 
 const theme = getTheme(themeVariables);
@@ -29,9 +28,8 @@ class App extends Component {
     constructor(props) {
         super(props);
         iconsLoaded.then(() => {
-            // this.startApp();
+            this.startApp();
         });
-        Navigation.showModal(loginNavObj);
     }
     startApp() {
         Navigation.startTabBasedApp({
@@ -40,7 +38,7 @@ class App extends Component {
                     label: 'Discover',
                     screen: 'v.DiscoverScreen',
                     icon: iconsMap['ios-search'],
-                    title: 'Discover',
+                    title: 'VIXOLE',
                     navigatorStyle
                 }, {
                     label: 'My VIXOLE',

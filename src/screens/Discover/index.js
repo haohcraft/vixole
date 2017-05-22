@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { get } from 'lodash';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
     Screen,
     ListView,
@@ -8,6 +11,8 @@ import {
     GridRow,
     Card
 } from '@shoutem/ui';
+
+import { navObj as loginNavObj } from '../Login';
 
 /* eslint-disable */
 const IMGS = [
@@ -24,7 +29,11 @@ const IMGS = [
 ];
 /* eslint-enable */
 
-export default class DiscoverScreen extends Component {
+class DiscoverScreen extends Component {
+    static propTypes = {
+        navigator: PropTypes.object,
+        isLogin: PropTypes.bool.isRequired
+    };
     renderRow(rowData, sectionId, index) {
         // rowData contains grouped data for one row,
         // so we need to remap it into cells and pass to GridRow
@@ -58,6 +67,18 @@ export default class DiscoverScreen extends Component {
         );
     }
 
+    componentWillMount() {
+        if (!this.props.isLogin) {
+            this.props.navigator.showModal(loginNavObj);
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.isLogin) {
+            nextProps.navigator.dismissModal();
+        }
+    }
+
     render() {
          // Group the restaurants into rows with 2 columns, except for the
         // first article. The first article is treated as a featured article
@@ -84,3 +105,11 @@ export default class DiscoverScreen extends Component {
 export const navObj = {
     screen: 'v.DiscoverScreen'
 };
+
+export default connect(
+    state => ({
+        isLogin: get(state, 'auth.isLogin')
+    }),
+    null
+)(DiscoverScreen);
+
