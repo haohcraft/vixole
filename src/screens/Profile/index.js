@@ -61,16 +61,16 @@ class ProfileScreen extends Component {
                     <Icon name="md-bulb" size={ 35 } style={ bulbStyle }/>
                     <Text styleName='md-gutter-left'>{name || 'Unknown'}</Text>
                     {
-                        this.props.isConnected ? (
-                            <TouchableOpacity onPress={() => this.onPressRemove({ deviceId: id })}>
-                                <Icon name="ios-close" size={ 35 }/>
-                            </TouchableOpacity>
-                        ) : (
+                        !this.props.isConnected && (
                             <TouchableOpacity onPress={() => this.onPressReconnect({ selectedDeviceId: id })}>
                                 <Icon name="ios-refresh" size={ 35 }/>
                             </TouchableOpacity>
                         )
                     }
+                    <TouchableOpacity onPress={() => this.onPressRemove({ deviceId: id })}>
+                        <Icon name="ios-close" size={ 35 }/>
+                    </TouchableOpacity>
+
                 </Row>
             );
         }

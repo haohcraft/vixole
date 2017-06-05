@@ -68,9 +68,9 @@ class DiscoverScreen extends Component {
     }
 
     componentWillMount() {
-        // if (!this.props.isLogin) {
-        this.props.navigator.showModal(loginNavObj);
-        // }
+        if (!this.props.isLogin) {
+            this.props.navigator.showModal(loginNavObj);
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -80,7 +80,7 @@ class DiscoverScreen extends Component {
     }
 
     render() {
-         // Group the restaurants into rows with 2 columns, except for the
+        // Group the restaurants into rows with 2 columns, except for the
         // first article. The first article is treated as a featured article
         let isFirstArticle = true;
         const groupedData = GridRow.groupByRows(IMGS, 2, () => {
