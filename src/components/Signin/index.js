@@ -2,11 +2,11 @@ import React from 'react';
 import {
     View,
     Text,
-    TextInput,
     Button
 } from '@shoutem/ui';
 import PropTypes from 'prop-types';
 import Colors from '../../theme/colors';
+import TextInput from '../TextInput';
 
 const styles = {
     text: {
@@ -20,11 +20,8 @@ const Signin = ({
 }) => (
     <View>
         <TextInput
-            styleName='xl-gutter-top sm-gutter-bottom'
             placeholder="Username or Email" />
         <TextInput
-            styleName='sm-gutter-top md-gutter-bottom'
-            style={ styles.textInput }
             placeholder="Password"
             secureTextEntry
         />
