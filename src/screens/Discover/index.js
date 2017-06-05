@@ -68,9 +68,9 @@ class DiscoverScreen extends Component {
     }
 
     componentWillMount() {
-        if (!this.props.isLogin) {
-            this.props.navigator.showModal(loginNavObj);
-        }
+        // if (!this.props.isLogin) {
+        this.props.navigator.showModal(loginNavObj);
+        // }
     }
 
     componentWillReceiveProps(nextProps) {

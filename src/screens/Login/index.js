@@ -1,33 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Icon from 'react-native-vector-icons/Ionicons';
 import {
     Screen,
     View,
     Text,
-    TouchableOpacity
+    TouchableOpacity,
+    Heading
 } from '@shoutem/ui';
-import Colors from '../../theme/colors';
 
 import authActions from '../../middlewares/auth/actions';
+import Signin from '../../components/Signin';
+import FbSignin from '../../components/FbSignin';
 
 export const navObj = {
     screen: 'v.LoginScreen'
-};
-
-const styles = {
-    container: {
-        padding: 20
-    },
-    link: {
-        color: Colors.link,
-        marginLeft: 5,
-        lineHeight: 25
-    },
-    icon: {
-        color: Colors.link
-    }
 };
 
 class LoginScreen extends Component {
@@ -38,21 +25,42 @@ class LoginScreen extends Component {
     static navigatorStyle = {
         navBarHidden: true
     };
+    constructor(props) {
+        super(props);
+        this.onPressSignIn = this._onPressSignIn.bind(this);
+        this.onPressFbLogin = this._onPressFbLogin.bind(this);
+        this.onPressForgotPw = this._onPressForgotPw.bind(this);
+        this.onPressSignUp = this._onPressSignUp.bind(this);
+    }
     render() {
         return (
              <Screen>
                 <View styleName='flexible center vertical space-around xl-gutter-left xl-gutter-right'>
-                    <TouchableOpacity onPress={() => this.onPressFbLogin()}>
-                        <View styleName='horizontal space-around' style={ styles.container }>
-                        <Icon name='logo-facebook' size={ 20 } style={ styles.icon }/>
-                        <Text style={ styles.link }>Log In With Facebook</Text>
-                        </View>
-                    </TouchableOpacity>
+                    <Heading styleName=''>VIXOLE.</Heading>
+                    <View>
+                        <Signin onPressSignIn={this.onPressSignIn}/>
+                        <TouchableOpacity onPress={this.onPressForgotPw}>
+                            <Text styleName='h-right sm-gutter-top sm-gutter-bottom'>Forgot Password</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={this.onPressSignUp}>
+                            <Text styleName='h-right'>Sign up</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <FbSignin onPressFbSignIn={ this.onPressFbLogin } />
                 </View>
             </Screen>
         );
     }
-    onPressFbLogin() {
+    _onPressSignIn() {
+        //
+    }
+    _onPressSignUp() {
+        //
+    }
+    _onPressForgotPw() {
+        //
+    }
+    _onPressFbLogin() {
         this.props.loginWithFb();
     }
 }

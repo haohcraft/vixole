@@ -13,7 +13,7 @@ export const themeVariables = {
         fontFamily: 'Rubik-Regular',
         fontStyle: 'normal',
         fontWeight: 'normal',
-        color: 'red',
+        color: Colors.black,
         fontSize: 25,
     },
     title: {

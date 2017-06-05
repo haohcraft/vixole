@@ -10,7 +10,8 @@ export const ActionTypes = createActionTypes({
         'LOGIN_WITH_FB_FAILED',
         'LOGIN_WITH_EMAIL',
         'LOGIN_WITH_EMAIL_SUCCESS',
-        'LOGIN_WITH_EMAIL_FAILED'
+        'LOGIN_WITH_EMAIL_FAILED',
+        'LOGOUT'
     ]
 });
 
