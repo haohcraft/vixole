@@ -5,7 +5,7 @@ import Colors from './colors';
 export const themeVariables = {
     ...defaultThemeVariables,
     featuredColor: Colors.dark10,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.dark80,
     paperColor: Colors.white,
     shadowColor: Colors.dark10,
 

@@ -36,7 +36,7 @@ class LoginScreen extends Component {
         return (
              <Screen>
                 <View styleName='flexible center vertical space-around xl-gutter-left xl-gutter-right'>
-                    <Heading styleName=''>VIXOLE.</Heading>
+                    <Heading styleName='h-center'>VIXOLE.</Heading>
                     <View>
                         <Signin onPressSignIn={this.onPressSignIn}/>
                         <TouchableOpacity onPress={this.onPressForgotPw}>

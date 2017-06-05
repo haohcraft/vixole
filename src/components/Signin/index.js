@@ -9,9 +9,6 @@ import PropTypes from 'prop-types';
 import Colors from '../../theme/colors';
 
 const styles = {
-    textInput: {
-        paddingLeft: 0
-    },
     text: {
         color: Colors.white
     }
@@ -24,10 +21,9 @@ const Signin = ({
     <View>
         <TextInput
             styleName='xl-gutter-top sm-gutter-bottom'
-            style={ styles.textInput }
             placeholder="Username or Email" />
         <TextInput
-            styleName='sm-gutter-top sm-gutter-bottom'
+            styleName='sm-gutter-top md-gutter-bottom'
             style={ styles.textInput }
             placeholder="Password"
             secureTextEntry

@@ -12,6 +12,7 @@ class Colors {
     dark50 = '#c6c6c6';
     dark60 = this.rgba(0, 0, 0, 0);
     dark70 = '#979797';
+    dark80 = this.rgba(0, 0, 0, 0.05);
     // WHITES
     white = '#ffffff';
 
