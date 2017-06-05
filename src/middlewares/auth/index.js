@@ -5,29 +5,31 @@ import { LoginManager, AccessToken, GraphRequest, GraphRequestManager } from 're
 import { startsWith, pick } from 'lodash';
 import actions, { AUTH, ActionTypes } from './actions';
 
-const responseInfoCallback = (error, /*result*/) => {
-    if (error) {
-      // console.log(error);
-      // alert('Error fetching data: ' + error.toString());
-    } else {
-        // console.log(result);
-    }
-};
-
 const authMiddleware = ({ dispatch }) => next => (action) => {
     if (startsWith(action.type, AUTH)) {
         switch (action.type) {
             case ActionTypes.LOGIN_WITH_FB: {
+                let accessToken;
+                const responseInfoCallback = (error, result) => {
+                    if (error) {
+                        dispatch(actions.loginWithFbFailed);
+                    } else {
+                        dispatch(actions.loginWithFbSuccess({
+                            ...accessToken,
+                            ...result
+                        }));
+                    }
+                };
+
                 LoginManager.logInWithReadPermissions(['public_profile', 'email', 'user_about_me']).then(
                     (result) => {
                         if (result.isCancelled) {
                             dispatch(actions.loginWithFbFailed());
                         } else {
-                            let accessToken;
                             AccessToken.getCurrentAccessToken().then((data) => {
                                 accessToken = pick(data, [
                                     'accessToken', 'userID',
-                                    'expirationTime', 'lastRefreshTime'
+                                    'expirationTime'
                                 ]);
                                 const infoRequest = new GraphRequest(
                                     '/me',
@@ -45,7 +47,6 @@ const authMiddleware = ({ dispatch }) => next => (action) => {
                                 new GraphRequestManager().addRequest(infoRequest).start();
                             });
 
-                            dispatch(actions.loginWithFbSuccess());
 
                         }
                     },
@@ -87,7 +88,9 @@ export const checkAuth = BaseScreen => (loginNavObj) => {
             }
         }
         render() {
-            return (<BaseScreen {...this.props} />);
+            return (
+                this.props.isAuthenticated ? <BaseScreen {...this.props} /> : null
+            );
         }
     }
 
