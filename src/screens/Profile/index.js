@@ -50,6 +50,10 @@ class ProfileScreen extends Component {
         );
     }
 
+    renderUserInfo() {
+        //
+    }
+
     renderDevice() {
         if (this.props.selectedDevice && this.props.selectedDevice.id.length) {
             const { name, id } = this.props.selectedDevice;

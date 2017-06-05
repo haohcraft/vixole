@@ -1,7 +1,18 @@
-import { LoginManager } from 'react-native-fbsdk';
-import { startsWith } from 'lodash';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { LoginManager, AccessToken, GraphRequest, GraphRequestManager } from 'react-native-fbsdk';
+import { startsWith, pick } from 'lodash';
 import actions, { AUTH, ActionTypes } from './actions';
 
+const responseInfoCallback = (error, /*result*/) => {
+    if (error) {
+      // console.log(error);
+      // alert('Error fetching data: ' + error.toString());
+    } else {
+        // console.log(result);
+    }
+};
 
 const authMiddleware = ({ dispatch }) => next => (action) => {
     if (startsWith(action.type, AUTH)) {
@@ -12,7 +23,30 @@ const authMiddleware = ({ dispatch }) => next => (action) => {
                         if (result.isCancelled) {
                             dispatch(actions.loginWithFbFailed());
                         } else {
+                            let accessToken;
+                            AccessToken.getCurrentAccessToken().then((data) => {
+                                accessToken = pick(data, [
+                                    'accessToken', 'userID',
+                                    'expirationTime', 'lastRefreshTime'
+                                ]);
+                                const infoRequest = new GraphRequest(
+                                    '/me',
+                                    {
+                                        accessToken: accessToken.accessToken,
+                                        parameters: {
+                                            fields: {
+                                                string: 'email,name,first_name,middle_name,last_name,picture'
+                                            }
+                                        }
+                                    },
+                                    responseInfoCallback
+                                );
+                                // Start the graph request.
+                                new GraphRequestManager().addRequest(infoRequest).start();
+                            });
+
                             dispatch(actions.loginWithFbSuccess());
+
                         }
                     },
                     (/*error*/) => {
@@ -26,6 +60,45 @@ const authMiddleware = ({ dispatch }) => next => (action) => {
         }
     }
     return next(action);
+};
+
+// To Check if the BaseScreen is authenticated or not
+export const checkAuth = BaseScreen => (loginNavObj) => {
+    // To prevent dismissing the non-login modal
+    let isLoginModal = false;
+    class CheckedComponent extends Component {
+        static propTypes = {
+            navigator: PropTypes.object.isRequired,
+            isAuthenticated: PropTypes.bool.isRequired
+        };
+        componentDidMount() {
+            if (!this.props.isAuthenticated) {
+                isLoginModal = true;
+                this.props.navigator.showModal(loginNavObj);
+            }
+        }
+        componentWillReceiveProps(nextProps) {
+            if (!nextProps.isAuthenticated) {
+                isLoginModal = true;
+                nextProps.navigator.showModal(loginNavObj);
+            } else if (isLoginModal) {
+                isLoginModal = false;
+                nextProps.navigator.dismissModal();
+            }
+        }
+        render() {
+            return (<BaseScreen {...this.props} />);
+        }
+    }
+
+    const ConnectedCheckedComponent = connect(
+        state => ({ isAuthenticated: state.auth.isAuthenticated }),
+        null
+    )(CheckedComponent);
+
+    return ConnectedCheckedComponent;
+    // TODO: need to hoist the BaseScreenComponent's props
+    //hoistPropTypes(BaseComponent, ConnectedCheckedComponent);
 };
 
 export default authMiddleware;

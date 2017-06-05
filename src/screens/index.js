@@ -6,12 +6,14 @@ import ScanScreen from './Scan';
 
 import DiscoverScreen from './Discover';
 import ProfileScreen from './Profile';
-import LoginScreen from './Login';
+import LoginScreen, { navObj as loginNavObj } from './Login';
+
+import { checkAuth } from '../middlewares/auth';
 
 export function registerScreens(store, Provider) {
     Navigation.registerComponent('v.Onboard', () => Onboard, store, Provider);
     Navigation.registerComponent('v.ScanScreen', () => ScanScreen, store, Provider);
-    Navigation.registerComponent('v.DiscoverScreen', () => DiscoverScreen, store, Provider);
+    Navigation.registerComponent('v.DiscoverScreen', () => checkAuth(DiscoverScreen)(loginNavObj), store, Provider);
     Navigation.registerComponent('v.ProfileScreen', () => ProfileScreen, store, Provider);
     Navigation.registerComponent('v.LoginScreen', () => LoginScreen, store, Provider);
 }
