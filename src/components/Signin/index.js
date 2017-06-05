@@ -25,7 +25,7 @@ const Signin = ({
             placeholder="Password"
             secureTextEntry
         />
-        <Button onPress={onPressSignIn} >
+        <Button onPress={onPressSignIn} styleName='md-gutter-top'>
             <Text style={ styles.text }>Sign in</Text>
         </Button>
     </View>
