@@ -10,7 +10,8 @@ import {
     Divider,
     Caption,
     Row,
-    TouchableOpacity
+    TouchableOpacity,
+    Button
 } from '@shoutem/ui';
 import Icon from 'react-native-vector-icons/Ionicons';
 
