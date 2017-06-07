@@ -4,13 +4,12 @@ import { connect } from 'react-redux';
 import {
     Screen,
     View,
-    Text,
-    TouchableOpacity,
     Heading
 } from '@shoutem/ui';
 
 import authActions from '../../middlewares/auth/actions';
 import Signin from '../../components/Signin';
+import Signup from '../../components/Signup';
 import FbSignin from '../../components/FbSignin';
 
 export const navObj = {
@@ -28,9 +27,15 @@ class LoginScreen extends Component {
     constructor(props) {
         super(props);
         this.onPressSignIn = this._onPressSignIn.bind(this);
-        this.onPressFbLogin = this._onPressFbLogin.bind(this);
-        this.onPressForgotPw = this._onPressForgotPw.bind(this);
         this.onPressSignUp = this._onPressSignUp.bind(this);
+        this.onPressFbLogin = this._onPressFbLogin.bind(this);
+        this.gotoForgotPw = this._gotoForgotPw.bind(this);
+        this.gotoSignUp = this._gotoSignUp.bind(this);
+        this.gotoSignIn = this._gotoSignIn.bind(this);
+
+        this.state = {
+            formType: ''
+        };
     }
     render() {
         return (
@@ -38,18 +43,30 @@ class LoginScreen extends Component {
                 <View styleName='flexible center vertical space-around xl-gutter-left xl-gutter-right'>
                     <Heading styleName='h-center'>VIXOLE.</Heading>
                     <View>
-                        <Signin onPressSignIn={this.onPressSignIn}/>
-                        <TouchableOpacity onPress={this.onPressForgotPw}>
-                            <Text styleName='h-right sm-gutter-top sm-gutter-bottom'>Forgot Password</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={this.onPressSignUp}>
-                            <Text styleName='h-right'>Sign up</Text>
-                        </TouchableOpacity>
+                        { this.renderForm(this.state.formType) }
                     </View>
                     <FbSignin onPressFbSignIn={ this.onPressFbLogin } />
                 </View>
             </Screen>
         );
+    }
+    renderForm(type) {
+        switch (type) {
+            case 'signup': {
+                return (
+                    <Signup
+                        onPressSignUp={this.onPressSignUp}
+                        gotoSignIn={this.gotoSignIn} />
+                );
+            }
+            default:
+                return (
+                    <Signin
+                        onPressSignIn={this.onPressSignIn}
+                        gotoForgotPw={this.gotoForgotPw}
+                        gotoSignUp={this.gotoSignUp} />
+                );
+        }
     }
     _onPressSignIn() {
         //
@@ -57,7 +74,18 @@ class LoginScreen extends Component {
     _onPressSignUp() {
         //
     }
-    _onPressForgotPw() {
+    _gotoSignUp() {
+        this.setState({
+            formType: 'signup'
+        });
+    }
+    _gotoSignIn() {
+        this.setState({
+            formType: 'signin'
+        });
+
+    }
+    _gotoForgotPw() {
         //
     }
     _onPressFbLogin() {
