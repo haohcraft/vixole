@@ -16,6 +16,12 @@ export const navObj = {
     screen: 'v.LoginScreen'
 };
 
+const styles = {
+    form: {
+        height: 200
+    }
+};
+
 class LoginScreen extends Component {
     static propTypes = {
         navigator: PropTypes.object,
@@ -29,7 +35,6 @@ class LoginScreen extends Component {
         this.onPressSignIn = this._onPressSignIn.bind(this);
         this.onPressSignUp = this._onPressSignUp.bind(this);
         this.onPressFbLogin = this._onPressFbLogin.bind(this);
-        this.gotoForgotPw = this._gotoForgotPw.bind(this);
         this.gotoSignUp = this._gotoSignUp.bind(this);
         this.gotoSignIn = this._gotoSignIn.bind(this);
 
@@ -42,7 +47,7 @@ class LoginScreen extends Component {
              <Screen>
                 <View styleName='flexible center vertical space-around xl-gutter-left xl-gutter-right'>
                     <Heading styleName='h-center'>VIXOLE.</Heading>
-                    <View>
+                    <View style={ styles.form }>
                         { this.renderForm(this.state.formType) }
                     </View>
                     <FbSignin onPressFbSignIn={ this.onPressFbLogin } />
@@ -63,7 +68,6 @@ class LoginScreen extends Component {
                 return (
                     <Signin
                         onPressSignIn={this.onPressSignIn}
-                        gotoForgotPw={this.gotoForgotPw}
                         gotoSignUp={this.gotoSignUp} />
                 );
         }
@@ -84,9 +88,6 @@ class LoginScreen extends Component {
             formType: 'signin'
         });
 
-    }
-    _gotoForgotPw() {
-        //
     }
     _onPressFbLogin() {
         this.props.loginWithFb();

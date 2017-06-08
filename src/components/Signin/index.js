@@ -19,7 +19,6 @@ const styles = {
 
 const Signin = ({
     onPressSignIn,
-    gotoForgotPw,
     gotoSignUp
 }) => (
     <View>
@@ -33,9 +32,6 @@ const Signin = ({
         <Button onPress={onPressSignIn} styleName='md-gutter-top'>
             <Text style={ styles.text }>Sign in</Text>
         </Button>
-        <TouchableOpacity onPress={gotoForgotPw}>
-            <Text styleName='h-right sm-gutter-top sm-gutter-bottom'>Forgot Password</Text>
-        </TouchableOpacity>
         <TouchableOpacity onPress={gotoSignUp}>
             <Text styleName='h-right'>Sign up</Text>
         </TouchableOpacity>
@@ -45,7 +41,6 @@ const Signin = ({
 
 Signin.propTypes = {
     onPressSignIn: PropTypes.func.isRequired,
-    gotoForgotPw: PropTypes.func.isRequired,
     gotoSignUp: PropTypes.func.isRequired
 };
 

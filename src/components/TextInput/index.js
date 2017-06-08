@@ -21,16 +21,21 @@ export default class TextInput extends Component {
         this.onInputBlur = this._onInputBlur.bind(this);
         this.onCleanPress = this._onCleanPress.bind(this);
         this.state = {
-            focused: false
+            focused: false,
+            text: ''
         };
     }
     render() {
         return (
             <View styleName='md-gutter-top'>
                 <View>
-                    <UITextInput {...this.props} onFocus={ this.onInputFocus } onBlur={ this.onInputBlur }/>
+                    <UITextInput {...this.props}
+                        onFocus={ this.onInputFocus }
+                        onBlur={ this.onInputBlur }
+                        value={ this.state.text }
+                        onChangeText={text => this.setState({ text })} />
                     {
-                        this.state.focused &&
+                        this.state.focused && !!this.state.text.length &&
                         <TouchableOpacity onPress={ this.onCleanPress } style={ styles.icon }>
                             <Icon name='ios-close' size={ 30 }/>
                         </TouchableOpacity>
@@ -50,7 +55,7 @@ export default class TextInput extends Component {
         });
     }
     _onCleanPress() {
-        //
+        this.setState({ text: '' });
     }
 }
 
