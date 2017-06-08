@@ -24,7 +24,8 @@ const Signup = ({
     <View>
         <Title styleName='h-center'>Create account</Title>
         <TextInput
-            placeholder="Email address" />
+            placeholder='Email address'
+            autoCapitalize='none' />
         <TextInput
             placeholder="Password"
             secureTextEntry

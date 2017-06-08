@@ -24,7 +24,8 @@ const Signin = ({
     <View>
         <Title styleName='h-center'>Welcome</Title>
         <TextInput
-            placeholder="Username or Email" />
+            placeholder='Username or Email'
+            autoCapitalize='none' />
         <TextInput
             placeholder="Password"
             secureTextEntry

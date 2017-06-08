@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
+    Dimensions,
+    Keyboard
+} from 'react-native';
+import {
     Screen,
     View,
     Heading
@@ -16,11 +20,7 @@ export const navObj = {
     screen: 'v.LoginScreen'
 };
 
-const styles = {
-    form: {
-        height: 200
-    }
-};
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 
 class LoginScreen extends Component {
     static propTypes = {
@@ -37,23 +37,46 @@ class LoginScreen extends Component {
         this.onPressFbLogin = this._onPressFbLogin.bind(this);
         this.gotoSignUp = this._gotoSignUp.bind(this);
         this.gotoSignIn = this._gotoSignIn.bind(this);
+        this.keyboardWillShow = this._keyboardWillShow.bind(this);
+        this.keyboardWillHide = this._keyboardWillHide.bind(this);
 
         this.state = {
-            formType: ''
+            formType: '',
+            containerHeight: SCREEN_HEIGHT
         };
+    }
+    componentWillMount() {
+        this.keyboardWillShowSub = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow);
+        this.keyboardWillHideSub = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
+    }
+    componentWillUnmount() {
+        this.keyboardWillShowSub.remove();
+        this.keyboardWillHideSub.remove();
     }
     render() {
         return (
-             <Screen>
-                <View styleName='flexible center vertical space-around xl-gutter-left xl-gutter-right'>
-                    <Heading styleName='h-center'>VIXOLE.</Heading>
-                    <View style={ styles.form }>
+            <Screen>
+                <View style={{ maxHeight: this.state.containerHeight }}
+                    styleName='flexible center vertical space-around xl-gutter-left xl-gutter-right'>
+                    <Heading styleName='h-center md-gutter-top'>VIXOLE.</Heading>
+                    <View>
                         { this.renderForm(this.state.formType) }
                     </View>
                     <FbSignin onPressFbSignIn={ this.onPressFbLogin } />
                 </View>
             </Screen>
         );
+    }
+    _keyboardWillShow(event) {
+        this.setState({
+            containerHeight: SCREEN_HEIGHT - event.endCoordinates.height
+        });
+    }
+
+    _keyboardWillHide() {
+        this.setState({
+            containerHeight: SCREEN_HEIGHT
+        });
     }
     renderForm(type) {
         switch (type) {

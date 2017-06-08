@@ -27,7 +27,7 @@ export default class TextInput extends Component {
     }
     render() {
         return (
-            <View styleName='md-gutter-top'>
+            <View styleName='sm-gutter-top'>
                 <View>
                     <UITextInput {...this.props}
                         onFocus={ this.onInputFocus }
