@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
     Screen,
     ListView,
@@ -24,7 +25,10 @@ const IMGS = [
 ];
 /* eslint-enable */
 
-export default class DiscoverScreen extends Component {
+class DiscoverScreen extends Component {
+    static propTypes = {
+        navigator: PropTypes.object
+    };
     renderRow(rowData, sectionId, index) {
         // rowData contains grouped data for one row,
         // so we need to remap it into cells and pass to GridRow
@@ -59,7 +63,7 @@ export default class DiscoverScreen extends Component {
     }
 
     render() {
-         // Group the restaurants into rows with 2 columns, except for the
+        // Group the restaurants into rows with 2 columns, except for the
         // first article. The first article is treated as a featured article
         let isFirstArticle = true;
         const groupedData = GridRow.groupByRows(IMGS, 2, () => {
@@ -84,3 +88,5 @@ export default class DiscoverScreen extends Component {
 export const navObj = {
     screen: 'v.DiscoverScreen'
 };
+
+export default DiscoverScreen;

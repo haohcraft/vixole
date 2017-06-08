@@ -39,7 +39,8 @@
     "padded-blocks": 0,
     "spaced-comment": 0,
     "no-redeclare": 0,
-    "no-console": 2
+    "no-console": 2,
+    "no-underscore-dangle": "off"
   },
   "env": {
     "browser": true,

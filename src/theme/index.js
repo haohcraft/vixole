@@ -5,7 +5,7 @@ import Colors from './colors';
 export const themeVariables = {
     ...defaultThemeVariables,
     featuredColor: Colors.dark10,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.dark80,
     paperColor: Colors.white,
     shadowColor: Colors.dark10,
 
@@ -13,7 +13,7 @@ export const themeVariables = {
         fontFamily: 'Rubik-Regular',
         fontStyle: 'normal',
         fontWeight: 'normal',
-        color: 'red',
+        color: Colors.black,
         fontSize: 25,
     },
     title: {

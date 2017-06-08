@@ -31,7 +31,6 @@ class App extends Component {
             this.startApp();
         });
     }
-
     startApp() {
         Navigation.startTabBasedApp({
             tabs: [
@@ -39,7 +38,7 @@ class App extends Component {
                     label: 'Discover',
                     screen: 'v.DiscoverScreen',
                     icon: iconsMap['ios-search'],
-                    title: 'Discover',
+                    title: 'VIXOLE',
                     navigatorStyle
                 }, {
                     label: 'My VIXOLE',
