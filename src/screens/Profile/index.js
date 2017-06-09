@@ -11,7 +11,8 @@ import {
     Caption,
     Row,
     TouchableOpacity,
-    Button
+    Button,
+    Image
 } from '@shoutem/ui';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -34,7 +35,11 @@ class ProfileScreen extends Component {
         isLogin: PropTypes.bool.isRequired,
         logout: PropTypes.func.isRequired,
         isConnected: PropTypes.bool.isRequired,
-        selectedDevice: PropTypes.object
+        selectedDevice: PropTypes.object,
+        user: PropTypes.shape({
+            name: PropTypes.string,
+            pic: PropTypes.string
+        }).isRequired
     };
     constructor(props) {
         super(props);
@@ -50,6 +55,7 @@ class ProfileScreen extends Component {
         return (
             <Screen>
                 <View>
+                    { this.renderUserInfo() }
                     <Divider styleName="section-header">
                         <Caption>VIXOLE Sneaker</Caption>
                     </Divider>
@@ -68,7 +74,28 @@ class ProfileScreen extends Component {
     }
 
     renderUserInfo() {
-        //
+        const { user } = this.props;
+        const styles = {
+            container: {
+                alignItems: 'center',
+                justifyContent: 'center'
+            },
+            avatarImage: {
+                width: 36,
+                height: 36,
+                borderRadius: 18,
+            }
+        };
+        if (user.name && user.pic) {
+            return (
+                <View styleName='vertical md-gutter-bottom md-gutter-top' style={ styles.container }>
+                    <Image styleName='h-center' style={ styles.avatarImage } source={{ uri: user.pic }} />
+                    <Text styleName='sm-gutter-top'>{ user.name }</Text>
+                </View>
+            );
+        }
+
+        return null;
     }
 
     renderDevice() {
@@ -128,10 +155,16 @@ export default connect(
         const isConnected = get(state, 'ble.selectedDevice.isConnected');
         const selectedDevice = get(state, `ble.devicesMap.${selectedId}`);
         const isLogin = get(state, 'auth.isAuthenticated');
+        const pic = get(state, 'auth.fb.picture.data.url');
+        const name = get(state, 'auth.fb.name');
         return {
             selectedDevice,
             isConnected,
-            isLogin
+            isLogin,
+            user: {
+                name,
+                pic
+            }
         };
     }, {
         removeDevice: BleActions.removeDevice,
