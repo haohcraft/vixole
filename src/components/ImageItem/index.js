@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     Image,
-    View
+    View,
+    TouchableOpacity
 } from '@shoutem/ui';
 
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -19,7 +20,9 @@ const ImageItem = ({
             source={ source }
         >
             <View styleName='horizontal ' style={styles.footer}>
-                <Icon style={ styles.iconHeart } size={25} name='md-heart-outline' />
+                <TouchableOpacity>
+                    <Icon style={ styles.iconHeart } size={25} name='md-heart-outline' />
+                </TouchableOpacity>
             </View>
         </Image>
     );

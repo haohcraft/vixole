@@ -11,8 +11,8 @@ const styles = {
     },
     iconHeart: {
         color: 'white',
-        paddingRight: 10,
-        paddingLeft: 10
+        padding: 10,
+        paddingBottom: 5
     }
 };
 

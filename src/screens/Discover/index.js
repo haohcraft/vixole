@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
     Screen,
     ListView,
-    TouchableOpacity,
+    View,
     Divider,
     GridRow,
 } from '@shoutem/ui';
@@ -33,17 +33,17 @@ class DiscoverScreen extends Component {
         // so we need to remap it into cells and pass to GridRow
         if (index === '0') {
             return (
-                <TouchableOpacity key={index}>
+                <View key={index}>
                     <ImageItem source={ rowData[0].image } styleName='large' />
                     <Divider styleName="line" />
-                </TouchableOpacity>
+                </View>
             );
         }
         const cellViews = rowData.map((data, id) => {
             return (
-                <TouchableOpacity key={id} styleName="flexible">
+                <View key={id} styleName="flexible">
                     <ImageItem source={ data.image } styleName='medium-wide' />
-                </TouchableOpacity>
+                </View>
             );
         });
         return (
