@@ -1,15 +1,10 @@
-import { createActionTypes, createActionCreator } from '../../lib/utils';
+import { createAPIActionTypes, createAPIActionCreator } from '../../middlewares/api/util';
 
-// Will generate actionTypes, like `BLE_START_SCAN`.
-export const ActionTypes = createActionTypes({
-    namespace: 'DISCOVERY',
-    types: [
-    	'GET_COLLECTION',
-        'LIKE',
-        'REVOKE_LIKE'
-    ]
-});
+export const getCollectionActionTypes = createAPIActionTypes({ namespace: 'COLLECTION.GET' });
 
 export default {
-    ...createActionCreator(ActionTypes)
+    getCollection: createAPIActionCreator({
+        actionTypes: getCollectionActionTypes
+    })
 };
+

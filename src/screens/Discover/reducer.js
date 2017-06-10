@@ -1,44 +1,25 @@
-import { ActionTypes } from './actions';
+import { combineReducers } from 'redux';
+import { getCollectionActionTypes } from './actions';
+import { createAPIReducer } from '../../middlewares/api/util';
+import itemReducer from '../../components/Item/reducer';
 
 const initialState = {
-	collection: {}
+    likes: {}
 };
 
-const discoverReduer = (state = initialState, action = {}) => {
-	switch (action.type) {
-		// TODO: should move the logic to data fetch layer?
-		case ActionTypes.GET_COLLECTION: {
-			return {
-				...state,
-				collection: action.payload
-			};
-		}
-		case ActionTypes.LIKE: {
-			const { likedId } = action.payload;
-			return {
-				collection: {
-					...state.collection,
-					[likedId]: {
-						...collection[likedId],
-						isLike: true
-					}
-				}
-			}
-		}
-		case ActionTypes.REVOKE_LIKE: {
-			const { likedId } = action.payload;
-			return {
-				collection: {
-					...state.collection,
-					[likedId]: {
-						...collection[likedId],
-						isLike: false
-					}
-				}
-			}
-		}
-	}
+const collectionReducer = createAPIReducer({
+    actionTypes: getCollectionActionTypes
+});
 
+const likesReducer = (state = initialState.likes, action) => {
+    const { itemId } = action.payload;
+    return {
+        ...state,
+        [itemId]: itemReducer(state[itemId], action).isLiked
+    };
 };
 
-export default discoverReduer;
+export default combineReducers({
+    collection: collectionReducer,
+    likes: likesReducer
+});

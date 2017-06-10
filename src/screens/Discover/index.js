@@ -7,7 +7,7 @@ import {
     Divider,
     GridRow,
 } from '@shoutem/ui';
-import ImageItem from '../../components/ImageItem';
+import Item from '../../components/Item';
 
 /* eslint-disable */
 const IMGS = [
@@ -34,7 +34,7 @@ class DiscoverScreen extends Component {
         if (index === '0') {
             return (
                 <View key={index}>
-                    <ImageItem source={ rowData[0].image } styleName='large' />
+                    <Item source={ rowData[0].image } styleName='large' />
                     <Divider styleName="line" />
                 </View>
             );
@@ -42,7 +42,7 @@ class DiscoverScreen extends Component {
         const cellViews = rowData.map((data, id) => {
             return (
                 <View key={id} styleName="flexible">
-                    <ImageItem source={ data.image } styleName='medium-wide' />
+                    <Item source={ data.image } styleName='medium-wide' />
                 </View>
             );
         });

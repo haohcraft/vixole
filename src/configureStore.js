@@ -7,8 +7,9 @@ import { autoRehydrate, persistStore } from 'redux-persist';
 import reducers from './reducers';
 import bleMiddleware from './middlewares/ble';
 import authMiddleware from './middlewares/auth';
+import APIMiddleware from './middlewares/api';
 
-let middleware = [thunk, bleMiddleware, authMiddleware];
+let middleware = [thunk, APIMiddleware, bleMiddleware, authMiddleware];
 
 if (__DEV__) {
     const logger = createLogger({ collapsed: true });
