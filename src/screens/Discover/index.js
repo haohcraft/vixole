@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { get } from 'lodash';
 import {
     Screen,
     ListView,
@@ -7,57 +9,25 @@ import {
     Divider,
     GridRow,
 } from '@shoutem/ui';
-import Item from '../../components/Item';
-
-/* eslint-disable */
-const IMGS = [
-    { image: require('../../assets/images/1_bird.jpg') },
-    { image: require('../../assets/images/2_circle.jpg') },
-    { image: require('../../assets/images/3_diamond.jpg') },
-    { image: require('../../assets/images/4_face.jpg') },
-    { image: require('../../assets/images/5_galaxy.jpg') },
-    { image: require('../../assets/images/6_grid.jpg') },
-    { image: require('../../assets/images/7_wave.jpg') },
-    { image: require('../../assets/images/8_snow.jpg') },
-    { image: require('../../assets/images/9_thumber.jpg') },
-    { image: require('../../assets/images/10_water.jpg') }
-];
-/* eslint-enable */
+import Item, { ItemActions } from '../../components/Item';
 
 class DiscoverScreen extends Component {
     static propTypes = {
-        navigator: PropTypes.object
+        navigator: PropTypes.object,
+        collection: PropTypes.array.isRequired,
+        likes: PropTypes.object.isRequired,
+        like: PropTypes.func.isRequired,
+        revokeLike: PropTypes.func.isRequired
     };
-    renderRow(rowData, sectionId, index) {
-        // rowData contains grouped data for one row,
-        // so we need to remap it into cells and pass to GridRow
-        if (index === '0') {
-            return (
-                <View key={index}>
-                    <Item source={ rowData[0].image } styleName='large' />
-                    <Divider styleName="line" />
-                </View>
-            );
-        }
-        const cellViews = rowData.map((data, id) => {
-            return (
-                <View key={id} styleName="flexible">
-                    <Item source={ data.image } styleName='medium-wide' />
-                </View>
-            );
-        });
-        return (
-            <GridRow columns={2}>
-                {cellViews}
-            </GridRow>
-        );
+    constructor(props) {
+        super(props);
+        this.renderRow = this._renderRow.bind(this);
     }
-
     render() {
         // Group the restaurants into rows with 2 columns, except for the
         // first article. The first article is treated as a featured article
         let isFirstArticle = true;
-        const groupedData = GridRow.groupByRows(IMGS, 2, () => {
+        const groupedData = GridRow.groupByRows(this.props.collection, 2, () => {
             if (isFirstArticle) {
                 isFirstArticle = false;
                 return 2;
@@ -74,10 +44,56 @@ class DiscoverScreen extends Component {
             </Screen>
         );
     }
+    _renderRow(rowData, sectionId, index) {
+        const { likes, like, revokeLike } = this.props;
+        // rowData contains grouped data for one row,
+        // so we need to remap it into cells and pass to GridRow
+        if (index === '0') {
+            return (
+                <View key={index}>
+                    <Item
+                        id={ rowData[0].uuid }
+                        source={ rowData[0].url }
+                        styleName='large'
+                        isLike={ !!likes[rowData[0].uuid] }
+                        onPressLike={like}
+                        onPressRevokeLike={revokeLike} />
+                    <Divider styleName="line" />
+                </View>
+            );
+        }
+        const cellViews = rowData.map((data, id) => {
+            return (
+                <View key={id} styleName="flexible">
+                    <Item
+                        id={ data.uuid }
+                        source={ data.url }
+                        styleName='medium-wide'
+                        isLike={ !!likes[data.uuid] }
+                        onPressLike={like}
+                        onPressRevokeLike={revokeLike} />
+                </View>
+            );
+        });
+        return (
+            <GridRow columns={2}>
+                {cellViews}
+            </GridRow>
+        );
+    }
 }
 
 export const navObj = {
     screen: 'v.DiscoverScreen'
 };
 
-export default DiscoverScreen;
+export default connect(
+    state => ({
+        collection: get(state, 'collection.data', []),
+        likes: get(state, 'likes')
+    }),
+    {
+        like: ItemActions.like,
+        revokeLike: ItemActions.revokeLike
+    }
+)(DiscoverScreen);

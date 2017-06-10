@@ -7,30 +7,50 @@ import {
 } from '@shoutem/ui';
 
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import actions from './actions';
 import styles from './style';
 
-const ImageItem = ({
+const Item = ({
+    id,
+    isLike,
     source,
-    styleName
+    styleName,
+    onPressLike,
+    onPressRevokeLike
 }) => {
+    const pressLike = () => {
+        if (isLike) {
+            onPressRevokeLike({ itemId: id });
+        } else {
+            onPressLike({ itemId: id });
+        }
+    };
+    const iconColor = {
+        color: isLike ? 'red' : 'white'
+    };
+
     return (
         <Image
             styleName={ styleName }
             source={ source }
         >
             <View styleName='horizontal ' style={styles.footer}>
-                <TouchableOpacity>
-                    <Icon style={ styles.iconHeart } size={25} name='md-heart-outline' />
+                <TouchableOpacity onPress={pressLike}>
+                    <Icon style={[styles.iconHeart, iconColor]} size={25} name='md-heart-outline' />
                 </TouchableOpacity>
             </View>
         </Image>
     );
 };
 
-ImageItem.propTypes = {
+Item.propTypes = {
+    id: PropTypes.string.isRequired,
     source: PropTypes.number.isRequired,
-    styleName: Image.propTypes.styleName
+    styleName: Image.propTypes.styleName,
+    onPressLike: PropTypes.func.isRequired,
+    onPressRevokeLike: PropTypes.func.isRequired,
+    isLike: PropTypes.bool.isRequired
 };
 
-export default ImageItem;
+export const ItemActions = actions;
+export default Item;
