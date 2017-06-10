@@ -4,11 +4,10 @@ import {
     Screen,
     ListView,
     TouchableOpacity,
-    Image,
     Divider,
     GridRow,
-    Card
 } from '@shoutem/ui';
+import ImageItem from '../../components/ImageItem';
 
 /* eslint-disable */
 const IMGS = [
@@ -35,10 +34,7 @@ class DiscoverScreen extends Component {
         if (index === '0') {
             return (
                 <TouchableOpacity key={index}>
-                    <Image
-                        styleName="large"
-                        source={ rowData[0].image }
-                    />
+                    <ImageItem source={ rowData[0].image } styleName='large' />
                     <Divider styleName="line" />
                 </TouchableOpacity>
             );
@@ -46,12 +42,7 @@ class DiscoverScreen extends Component {
         const cellViews = rowData.map((data, id) => {
             return (
                 <TouchableOpacity key={id} styleName="flexible">
-                    <Card styleName="flexible">
-                        <Image
-                            styleName="medium-wide"
-                            source={ data.image }
-                        />
-                    </Card>
+                    <ImageItem source={ data.image } styleName='medium-wide' />
                 </TouchableOpacity>
             );
         });
