@@ -8,7 +8,6 @@ import {
     View,
     Text,
     Divider,
-    Caption,
     Row,
     TouchableOpacity,
     Button,
@@ -16,6 +15,7 @@ import {
 } from '@shoutem/ui';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import Stage from '../../components/Stage';
 import Colors from '../../theme/colors';
 import { navObj as onBoardNavObj } from '../Onboard';
 import BleActions from '../../middlewares/ble/actions';
@@ -39,7 +39,8 @@ class ProfileScreen extends Component {
         user: PropTypes.shape({
             name: PropTypes.string,
             pic: PropTypes.string
-        }).isRequired
+        }).isRequired,
+        likedItems: PropTypes.array.isRequired
     };
     constructor(props) {
         super(props);
@@ -56,11 +57,13 @@ class ProfileScreen extends Component {
             <Screen>
                 <View>
                     { this.renderUserInfo() }
-                    <Divider styleName="section-header">
-                        <Caption>VIXOLE Sneaker</Caption>
-                    </Divider>
-                        { this.renderDevice() }
                     <Divider styleName='line' />
+                    <Stage title='VIXOLE Sneaker'>
+                        { this.renderDevice() }
+                    </Stage>
+                    <Stage title='Likes'>
+                        { this.renderLikes() }
+                    </Stage>
                     {
                         this.props.isLogin && (
                             <Button onPress={this.onPressLogout} >
@@ -96,6 +99,14 @@ class ProfileScreen extends Component {
         }
 
         return null;
+    }
+
+    renderLikes() {
+        return this.props.likedItems.map((item, i) => (
+            <View key={i}>
+                <Text>{ item.uuid }</Text>
+            </View>
+        ));
     }
 
     renderDevice() {
@@ -151,12 +162,15 @@ export const navObj = {
 
 export default connect(
     (state) => {
+        const collection = get(state, 'collection.data', []);
+        const likes = get(state, 'likes');
         const selectedId = get(state, 'ble.selectedDevice.id');
         const isConnected = get(state, 'ble.selectedDevice.isConnected');
         const selectedDevice = get(state, `ble.devicesMap.${selectedId}`);
         const isLogin = get(state, 'auth.isAuthenticated');
         const pic = get(state, 'auth.fb.picture.data.url');
         const name = get(state, 'auth.fb.name');
+        const likedItems = collection.filter(c => likes[c.uuid]);
         return {
             selectedDevice,
             isConnected,
@@ -164,7 +178,8 @@ export default connect(
             user: {
                 name,
                 pic
-            }
+            },
+            likedItems
         };
     }, {
         removeDevice: BleActions.removeDevice,

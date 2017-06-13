@@ -1,10 +1,10 @@
 import { createActionTypes } from '../../lib/utils';
 
-export const API_REQUEST = 'API_REQUEST';
+export const API_REQUEST = '@API_REQUEST';
 
 //
 export const createAPIReducer = ({
-    initialState,
+    initialState = {},
     actionTypes
 }) => {
     return (state = initialState, action = {}) => {
@@ -43,8 +43,31 @@ export const createAPIReducer = ({
     };
 };
 
+export const createAPIActionCreator = ({
+    method,
+    actionTypes,
+    apiURL,
+    apiData,
+    postProcessor
+}) => {
+    return {
+        type: API_REQUEST,
+        payload: {
+            method,
+            steps: {
+                loading: actionTypes.LOADING,
+                success: actionTypes.LOADED,
+                fail: actionTypes.ERROR
+            },
+            apiURL,
+            apiData,
+            postProcessor
+        }
+    };
+};
+
 //  To create an a hash map of API action types AKA LOADING, LOADED and ERROR
-export const createAPIActionTypes = (namespace) => {
+export const createAPIActionTypes = ({ namespace }) => {
     return createActionTypes({
         namespace,
         types: ['LOADING', 'LOADED', 'ERROR']
