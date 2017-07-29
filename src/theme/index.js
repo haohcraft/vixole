@@ -30,6 +30,9 @@ export const themeVariables = {
         ...textStyle,
         fontSize: 10,
     },
+    bgRegular: Colors.white,
+    bgTransparent: Colors.transparent,
+
 
     featuredColor: Colors.dark10,
     backgroundColor: Colors.dark80,

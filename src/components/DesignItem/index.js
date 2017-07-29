@@ -19,6 +19,7 @@ import More from './More';
 const DesignItem = ({
     source,
     name,
+    onItemPress,
     itemWidth = baseItemWidth,
     designWidth = baseDesignWidth
 }) => {
@@ -34,6 +35,7 @@ const DesignItem = ({
         <TouchableOpacity
             activeOpacity={ 1 }
             style={ [styleDesignItem.container, styleContainer] }
+            onPress={ onItemPress }
         >
             <View style={ styleDesignItem.imageContainer }>
                 <Image
@@ -50,7 +52,8 @@ const DesignItem = ({
 
 DesignItem.propTypes = {
     source: PropTypes.number.isRequired,
-    name: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    onItemPress: PropTypes.func.isRequired,
     itemWidth: PropTypes.number,
     designWidth: PropTypes.number
 };

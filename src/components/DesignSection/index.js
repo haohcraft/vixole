@@ -11,14 +11,21 @@ import styles, { sliderWidth } from './style';
 const NUM_PREVIEW = 7;
 export default class DesignSection extends PureComponent {
     getSlides = (entries) => {
+        const { navigator } = this.props;
         const groups = [];
         let group = [];
         entries.forEach((entry, index) => {
+            const onItemPress = () => {
+                navigator.showModal({
+                    screen: 'v.DesignDetailScreen'
+                });
+            };
             group.push(
                 <DesignItem
                     key={ index }
                     id={ entry.uuid }
                     name={ entry.name }
+                    onItemPress={ onItemPress }
                     source={ entry.url } />
             );
             if (group.length === 2) {
@@ -64,6 +71,7 @@ export default class DesignSection extends PureComponent {
 }
 
 DesignSection.propTypes = {
+    navigator: PropTypes.object.isRequired,
     label: PropTypes.string.isRequired,
     collection: PropTypes.arrayOf(PropTypes.shape({
         uuid: PropTypes.string.isRequired,

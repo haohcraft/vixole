@@ -26,7 +26,9 @@ class DiscoverScreen extends Component {
         });
     }
     renderItem = ({ item }) => {
+        const { navigator } = this.props;
         return <DesignSection
+                navigator={ navigator }
                 label={ item.label }
                 collection={ item.data }
                 onSeeAllPress={ this.onSeeAllPress({ label: item.label }) } />;

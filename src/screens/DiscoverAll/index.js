@@ -18,7 +18,7 @@ export default class DiscoverAll extends Component {
         return (
             <Screen>
                 <Nav name={ collectionName } navigator={ navigator } />
-                <DesignList items={ items } />
+                <DesignList items={ items } navigator={ navigator } />
             </Screen>
         );
     }
