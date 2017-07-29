@@ -1,5 +1,8 @@
 import { reduce, camelCase } from 'lodash';
+import { Platform, NativeModules, Dimensions } from 'react-native';
 
+const { width: viewportWidth } = Dimensions.get('window');
+const { StatusBarManager } = NativeModules;
 const actionTypesMap = {};
 
 export function createActionTypes({ types = [], namespace = '' }) {
@@ -22,3 +25,10 @@ export function createActionCreator(actionTypes) {
         })
     }), {});
 }
+
+export const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBarManager.HEIGHT;
+
+export const widthPercentage = (percentage) => {
+    const value = (percentage * viewportWidth) / 100;
+    return Math.round(value);
+};

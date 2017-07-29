@@ -1,50 +1,64 @@
 {
-	"name": "vixole",
-	"version": "0.0.1",
-	"private": true,
-	"scripts": {
-		"start": "export __DEV__=true && node node_modules/react-native/local-cli/cli.js start",
-		"test": "jest",
-		"lint": "eslint src -c .eslintrc",
-		"ios": "react-native run-ios",
-		"xcode": "open ./ios/vixole.xcodeproj"
-	},
-	"pre-commit": [
-		"lint"
-	],
-	"dependencies": {
-		"@shoutem/theme": "^0.9.0",
-		"@shoutem/ui": "^0.12.0-rc.0",
-		"classnames": "^2.2.5",
-		"keymirror": "^0.1.1",
-		"lodash": "^4.17.4",
-		"prop-types": "^15.5.9",
-		"react": "~15.4.1",
-		"react-native": "0.41.0",
-		"react-native-ble-plx": "^0.4.0",
-		"react-native-fbsdk": "^0.5.0",
-		"react-native-navigation": "^1.1.72",
-		"react-native-vector-icons": "^4.1.1",
-		"react-redux": "^5.0.4",
-		"redux": "^3.6.0",
-		"redux-logger": "^3.0.1",
-		"redux-persist": "^4.8.0",
-		"redux-thunk": "^2.2.0"
-	},
-	"devDependencies": {
-		"babel-eslint": "^7.2.3",
-		"babel-jest": "20.0.0",
-		"babel-preset-react-native": "1.9.1",
-		"eslint": "^3.19.0",
-		"eslint-config-airbnb-base": "^11.1.3",
-		"eslint-plugin-import": "^2.2.0",
-		"eslint-plugin-react": "^7.0.0",
-		"eslint-plugin-react-native": "^2.3.2",
-		"jest": "20.0.0",
-		"pre-commit": "^1.2.2",
-		"react-test-renderer": "16.0.0-alpha.6"
-	},
-	"jest": {
-		"preset": "react-native"
-	}
+  "name": "vixole",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "export __DEV__=true && node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest",
+    "lint": "eslint src -c .eslintrc",
+    "ios": "react-native run-ios",
+    "xcode": "open ./ios/vixole.xcodeproj"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "dependencies": {
+    "@shoutem/theme": "^0.9.0",
+    "@shoutem/ui": "^0.12.0-rc.0",
+    "classnames": "^2.2.5",
+    "keymirror": "^0.1.1",
+    "lodash": "^4.17.4",
+    "prop-types": "^15.5.9",
+    "react": "16.0.0-alpha.6",
+    "react-native": "0.44.3",
+    "react-native-ble-plx": "^0.4.0",
+    "react-native-fbsdk": "^0.5.0",
+    "react-native-navigation": "^1.1.72",
+    "react-native-snap-carousel": "^2.4.0",
+    "react-native-vector-icons": "^4.1.1",
+    "react-redux": "^5.0.4",
+    "redux": "^3.6.0",
+    "redux-logger": "^3.0.1",
+    "redux-persist": "^4.8.0",
+    "redux-thunk": "^2.2.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "babel-jest": "20.0.0",
+    "babel-preset-react-native": "1.9.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.1.3",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-react": "^7.0.0",
+    "eslint-plugin-react-native": "^2.3.2",
+    "jest": "20.0.0",
+    "pre-commit": "^1.2.2",
+    "react-test-renderer": "16.0.0-alpha.6"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "description": "### Setup - To setup [react-native-navigation](https://wix.github.io/react-native-navigation/#/installation-ios) - To setup [react-native-ble-plx](https://github.com/Polidea/react-native-ble-plx)",
+  "main": "index.android.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haohcraft/vixole.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/haohcraft/vixole/issues"
+  },
+  "homepage": "https://github.com/haohcraft/vixole#readme"
 }

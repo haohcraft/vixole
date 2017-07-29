@@ -1,19 +1,13 @@
 // From https://github.com/wix/react-native-ui-lib/blob/master/src/style/colors.js
 import _ from 'lodash';
 
+
 class Colors {
-    link = '#0366d6';
-    // DARKS
     black = '#000000';
-    dark10 = '#111111';
-    dark20 = '#171717';
-    dark30 = '#242424';
-    dark40 = '#363636';
-    dark50 = '#c6c6c6';
-    dark60 = this.rgba(0, 0, 0, 0);
-    dark70 = '#979797';
-    dark80 = this.rgba(0, 0, 0, 0.05);
-    // WHITES
+    gray = '#cccccc';
+    gray10 = '#999999';
+    gray20 = '#666666';
+    link = '#0366d6';
     white = '#ffffff';
 
     /**

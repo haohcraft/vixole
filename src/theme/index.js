@@ -1,9 +1,36 @@
 import { defaultThemeVariables } from '@shoutem/ui';
 import Colors from './colors';
 
-// export const themeVariables = defaultThemeVariables;
+const textStyle = {
+    fontFamily: 'Helvetica',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    color: Colors.black,
+};
 export const themeVariables = {
     ...defaultThemeVariables,
+
+    // For non-shoutem part
+    navTitle: {
+        ...textStyle,
+        fontWeight: 'bold',
+        fontSize: 36,
+
+    },
+    headTitle: {
+        ...textStyle,
+        fontSize: 24
+    },
+    title: {
+        ...textStyle,
+        fontSize: 12,
+    },
+
+    subTitle: {
+        ...textStyle,
+        fontSize: 10,
+    },
+
     featuredColor: Colors.dark10,
     backgroundColor: Colors.dark80,
     paperColor: Colors.white,
@@ -15,13 +42,6 @@ export const themeVariables = {
         fontWeight: 'normal',
         color: Colors.black,
         fontSize: 25,
-    },
-    title: {
-        fontFamily: 'Rubik-Regular',
-        fontStyle: 'normal',
-        fontWeight: 'normal',
-        fontSize: 20,
-        color: '#222222',
     },
     subtitle: {
         fontFamily: 'Rubik-Regular',
