@@ -6,6 +6,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 const navIconSize = (__DEV__ === false && Platform.OS === 'android') ? PixelRatio.getPixelSizeForLayoutSize(40) : 40; // eslint-disable-line
 const replaceSuffixPattern = /--(active|big|small|very-big)/g;
 const icons = {
+    'ios-arrow-back': [30],
+    'ios-arrow-forward': [30],
     'ios-person': [30],
     'ios-image': [30],
     'ios-search': [30],

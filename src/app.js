@@ -17,13 +17,6 @@ Theme.setDefaultThemeStyle(theme);
 const store = configureStore();
 registerScreens(store, Provider);
 
-const navigatorStyle = {
-    drawUnderNavBar: true,
-    navBarTextColor: 'black',
-    navBarButtonColor: 'black',
-    drawUnderTabBar: true
-};
-
 class App extends Component {
     constructor(props) {
         super(props);
@@ -37,15 +30,11 @@ class App extends Component {
                 {
                     label: 'Discover',
                     screen: 'v.DiscoverScreen',
-                    icon: iconsMap['ios-search'],
-                    title: 'VIXOLE',
-                    navigatorStyle
+                    icon: iconsMap['ios-search']
                 }, {
                     label: 'My VIXOLE',
                     screen: 'v.ProfileScreen',
-                    icon: iconsMap['ios-person'],
-                    title: 'My VIXOLE',
-                    navigatorStyle
+                    icon: iconsMap['ios-person']
                 }
             ]
         });
