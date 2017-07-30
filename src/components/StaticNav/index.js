@@ -4,6 +4,7 @@ import {
     Text,
     StyleSheet
 } from 'react-native';
+import PropTypes from 'prop-types';
 import { STATUSBAR_HEIGHT } from '../../lib/utils';
 import { themeVariables } from '../../theme';
 
@@ -17,12 +18,16 @@ const styles = StyleSheet.create({
     navTitle: themeVariables.navTitle
 });
 
-const Nav = () => {
+const StaticNav = ({ title }) => {
     return (
         <View style={ styles.container } >
-            <Text style={ styles.navTitle } >DISCOVER</Text>
+            <Text style={ styles.navTitle } >{ title.toUpperCase() }</Text>
         </View>
     );
 };
 
-export default Nav;
+StaticNav.propTypes = {
+    title: PropTypes.string.isRequired
+};
+
+export default StaticNav;

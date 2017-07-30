@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FlatList } from 'react-native';
 import { get } from 'lodash';
-import Nav from './Nav';
+import StaticNav from '../../components/StaticNav';
 import Screen from '../../components/Screen';
 import DesignSection from '../../components/DesignSection';
 
@@ -53,7 +53,7 @@ class DiscoverScreen extends Component {
         ];
         return (
             <Screen>
-                <Nav />
+                <StaticNav title='discover' />
                 <FlatList
                     data={ rows }
                     renderItem={ this.renderItem }

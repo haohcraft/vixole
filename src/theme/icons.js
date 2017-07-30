@@ -12,7 +12,7 @@ const icons = {
     'ios-image': [30],
     'ios-search': [30],
     'ios-arrow-round-down': [navIconSize],
-    'ios-close': [40]
+    'ios-close': [30]
 };
 
 const iconsMap = {};
