@@ -30,14 +30,15 @@ const styles = StyleSheet.create({
 const Nav = ({ name, navigator }) => {
     const goBack = () => { navigator.pop(); };
     return (
-        <TouchableOpacity onPress={ goBack }>
-            <View style={ styles.container } >
+        <View style={ styles.container } >
+            <TouchableOpacity onPress={ goBack }>
+
                 <Image style={ styles.icon }
                     resizeMode={ Image.resizeMode.contain }
                     source={{ uri: iconsMap['ios-arrow-back'].uri }} />
-                <Text style={ styles.navTitle } >{ name }</Text>
-            </View>
-        </TouchableOpacity>
+            </TouchableOpacity>
+            <Text style={ styles.navTitle } >{ name }</Text>
+        </View>
     );
 };
 
