@@ -33,13 +33,13 @@ const Button = ({
 };
 Button.propTypes = {
     label: PropTypes.string.isRequired,
-    icon: PropTypes.string.isRequired,
     onPress: PropTypes.func.isRequired,
     styles: PropTypes.shape({
         container: stylePropType,
         icon: stylePropType,
         label: stylePropType
-    })
+    }),
+    icon: PropTypes.string
 };
 
 export default Button;

@@ -3,6 +3,7 @@ import {
 } from 'react-native';
 import { STATUSBAR_HEIGHT, widthPercentage, heightPercentage } from '../../lib/utils';
 import { themeVariables } from '../../theme';
+import colors from '../../theme/colors';
 
 const CONTENT_HORIZONTAL_PADDING = 30;
 const styleNav = StyleSheet.create({
@@ -46,10 +47,10 @@ const styleDesighDetail = StyleSheet.create({
         backgroundColor: themeVariables.bgRegular
     },
     image: {
-        opacity: 1,
         width: widthPercentage(90),
         height: widthPercentage(50),
-        marginBottom: 30
+        marginBottom: 30,
+        backgroundColor: colors.gray
     },
     content: {
         paddingHorizontal: CONTENT_HORIZONTAL_PADDING,
