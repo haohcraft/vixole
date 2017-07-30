@@ -5,48 +5,70 @@ import {
     View,
     Image
 } from 'react-native';
-
 import Screen from '../../components/Screen';
 import Button from '../../components/Button';
 import Nav from './Nav';
 import { styleDesighDetail, styleButton } from './style';
 
-const imageSource = require('../../assets/images/9_thumber.jpg');
 
+const DESCRIPTION = 'Store in a cool dry place. Use for formal, evening or casual occasions. ';
 export default class DesignDetail extends Component {
+    constructor(props) {
+        super(props);
+        const {
+            index = 0
+        } = props;
+        this.state = {
+            index
+        };
+    }
     static propTypes = {
-        name: PropTypes.string,
-        description: PropTypes.string,
-        navigator: PropTypes.object,
+        index: PropTypes.number.isRequired,
+        collection: PropTypes.array.isRequired,
+        navigator: PropTypes.object.isRequired,
+        hasPreNext: PropTypes.bool
     };
     static navigatorStyle = {
         navBarHidden: true,
         screenBackgroundColor: 'transparent',
-        modalPresentationStyle: 'overCurrentContext',
+        modalPresentationStyle: 'overCurrentContext'
     };
+    onPrevPress = () => {
+        const { index } = this.state;
+        this.setState({
+            index: index - 1
+        });
+    }
+    onNextPress = () => {
+        const { index } = this.state;
+        this.setState({
+            index: index + 1
+        });
+    }
     render() {
-        const { navigator } = this.props;
+        const { navigator, hasPreNext, collection = [] } = this.props;
+        const { index } = this.state;
+        const { name, url } = collection[index];
         return (
             <Screen style={ styleDesighDetail.screen } >
-                <Nav navigator={ navigator } />
+                <Nav
+                    navigator={ navigator }
+                    hasPreNext={ hasPreNext }
+                    isPrevDisabled={ index === 0 }
+                    isNextDisabled={ index === collection.length - 1 }
+                    onPrevPress={ this.onPrevPress }
+                    onNextPress={ this.onNextPress } />
                 <View style={ styleDesighDetail.container } >
                     <Image
                         style={ styleDesighDetail.image }
-                        source={ imageSource } />
+                        source={ url } />
                     <View style={ styleDesighDetail.content } >
-                        <View style={ styleDesighDetail.contentLeft }>
-                            <View style={ styleDesighDetail.contentLeftTitleContainer } >
-                                <Text style={ styleDesighDetail.contentLeftTitle }>Good</Text>
+                            <View style={ styleDesighDetail.contentTitleContainer } >
+                                <Text style={ styleDesighDetail.contentTitle }>{ name.toUpperCase() }</Text>
                             </View>
-                        </View>
-                        <View style={ styleDesighDetail.contentRight }>
                             <Text>
-                                {
-                                    `Store in a cool dry place. Use for formal, evening or casual occasions. 
-                                    `
-                                }
+                                { DESCRIPTION }
                             </Text>
-                        </View>
                     </View>
                     <View style={ styleDesighDetail.buttons } >
                         <Button label='View' styles={ styleButton } />

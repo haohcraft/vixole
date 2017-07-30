@@ -13,19 +13,14 @@ const itemWidth = designWidth;
 const extractKey = ({ uuid }) => uuid;
 
 export default class DesignList extends Component {
-    renderItem = ({ item }) => {
-        const { navigator } = this.props;
-        const onItemPress = () => {
-            navigator.showModal({
-                screen: 'v.DesignDetailScreen'
-            });
-        };
+    renderItem = ({ item, index }) => {
+        const { onItemPress } = this.props;
         return <DesignItem
             id={ item.uuid }
             name={ item.name }
             source={ item.url }
             itemWidth={ itemWidth }
-            onItemPress={ onItemPress }
+            onItemPress={ onItemPress({ index }) }
             designWidth={ designWidth } />;
     };
 
@@ -43,6 +38,6 @@ export default class DesignList extends Component {
 }
 
 DesignList.propTypes = {
-    navigator: PropTypes.object.isRequired,
-    items: DesignSection.propTypes.collection
+    items: DesignSection.propTypes.collection,
+    onItemPress: PropTypes.func.isRequired
 };

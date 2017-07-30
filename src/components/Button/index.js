@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
     View,
     Text,
@@ -6,6 +7,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { iconsMap } from '../../theme/icons';
+import { stylePropType } from '../../lib/utils';
 import buttonStyles from './style';
 
 const Button = ({
@@ -28,6 +30,16 @@ const Button = ({
             </View>
         </TouchableOpacity>
     );
+};
+Button.propTypes = {
+    label: PropTypes.string.isRequired,
+    icon: PropTypes.string.isRequired,
+    onPress: PropTypes.func.isRequired,
+    styles: PropTypes.shape({
+        container: stylePropType,
+        icon: stylePropType,
+        label: stylePropType
+    })
 };
 
 export default Button;

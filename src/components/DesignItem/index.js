@@ -44,7 +44,7 @@ const DesignItem = ({
                 />
             </View>
             <View style={ styleDesignItem.textContainer }>
-                <Text style={ styleDesignItem.text } >{ `${name}` }</Text>
+                <Text style={ styleDesignItem.text } >{ name.toUpperCase() }</Text>
             </View>
         </TouchableOpacity>
     );

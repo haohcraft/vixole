@@ -17,13 +17,23 @@ const styleNav = StyleSheet.create({
     buttons: {
         flexDirection: 'row'
     },
+    button: {
+        width: 30,
+        height: 30,
+    },
+    buttonDisabled: {
+        opacity: themeVariables.disabledOpacity
+    },
+    buttonRight: {
+        marginLeft: 5
+    }
 });
 
 const styleButton = StyleSheet.create({
     container: {
         borderWidth: 3
     },
-    label: themeVariables.headTitle
+    label: themeVariables.buttonText
 });
 
 const styleDesighDetail = StyleSheet.create({
@@ -43,18 +53,15 @@ const styleDesighDetail = StyleSheet.create({
     },
     content: {
         paddingHorizontal: CONTENT_HORIZONTAL_PADDING,
-        flexDirection: 'row',
         paddingBottom: 50
     },
-    contentLeft: {
-        flex: 1,
-    },
-    contentLeftTitleContainer: {
+    contentTitleContainer: {
         marginBottom: CONTENT_HORIZONTAL_PADDING
     },
-    contentLeftTitle: themeVariables.headTitle,
+    contentTitle: themeVariables.headTitle,
     contentRight: {
         flex: 2,
+        paddingLeft: 5
     },
     buttons: {
         position: 'absolute',
