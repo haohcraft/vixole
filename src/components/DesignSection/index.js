@@ -8,9 +8,9 @@ import DesignItem, { baseItemWidth, More } from '../DesignItem';
 import Heading from '../Heading';
 import styles, { sliderWidth } from './style';
 
-const NUM_PREVIEW = 7;
 export default class DesignSection extends PureComponent {
     getSlides = (entries) => {
+        const { onItemPress } = this.props;
         const groups = [];
         let group = [];
         entries.forEach((entry, index) => {
@@ -19,6 +19,7 @@ export default class DesignSection extends PureComponent {
                     key={ index }
                     id={ entry.uuid }
                     name={ entry.name }
+                    onItemPress={ onItemPress({ index }) }
                     source={ entry.url } />
             );
             if (group.length === 2) {
@@ -56,7 +57,7 @@ export default class DesignSection extends PureComponent {
                     removeClippedSubviews={ false }
                     carouselHorizontalPadding={ 0 }
                 >
-                    { this.getSlides(collection.slice(0, NUM_PREVIEW)) }
+                    { this.getSlides(collection) }
                 </Carousel>
             </View>
         );
@@ -64,11 +65,13 @@ export default class DesignSection extends PureComponent {
 }
 
 DesignSection.propTypes = {
+    navigator: PropTypes.object.isRequired,
     label: PropTypes.string.isRequired,
     collection: PropTypes.arrayOf(PropTypes.shape({
         uuid: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         url: PropTypes.any
     })).isRequired,
-    onSeeAllPress: PropTypes.func.isRequired
+    onSeeAllPress: PropTypes.func.isRequired,
+    onItemPress: PropTypes.func.isRequired,
 };

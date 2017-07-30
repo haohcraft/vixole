@@ -10,6 +10,8 @@ class Colors {
     link = '#0366d6';
     white = '#ffffff';
 
+    transparent = this.rgba(255, 255, 255, 0.9);
+
     /**
     * Load custom set of colors
     * arguments:

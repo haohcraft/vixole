@@ -9,9 +9,5 @@ export default StyleSheet.create({
     },
     text: {
         ...themeVariables.headTitle
-    },
-    icon: {
-        width: 30,
-        height: 30
     }
 });

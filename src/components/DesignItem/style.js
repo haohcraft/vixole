@@ -5,8 +5,8 @@ import { widthPercentage } from '../../lib/utils';
 
 const designWidth = widthPercentage(35);
 /* eslint-disable no-mixed-operators */
-const itemWidth = designWidth + itemHorizontalMargin * 2;
 const itemHorizontalMargin = widthPercentage(1);
+const itemWidth = designWidth + itemHorizontalMargin * 2;
 const styleDesignItem = StyleSheet.create({
     container: {
         paddingHorizontal: itemHorizontalMargin

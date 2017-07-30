@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types';
 import { reduce, camelCase } from 'lodash';
 import { Platform, NativeModules, Dimensions } from 'react-native';
 
-const { width: viewportWidth } = Dimensions.get('window');
+const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
 const { StatusBarManager } = NativeModules;
 const actionTypesMap = {};
 
@@ -32,3 +33,11 @@ export const widthPercentage = (percentage) => {
     const value = (percentage * viewportWidth) / 100;
     return Math.round(value);
 };
+
+export const heightPercentage = (percentage) => {
+    const value = (percentage * viewportHeight) / 100;
+    return Math.round(value);
+};
+
+
+export const stylePropType = PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]);

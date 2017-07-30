@@ -8,6 +8,8 @@ import Screen from '../../components/Screen';
 import DesignSection from '../../components/DesignSection';
 
 const extractKey = ({ id }) => id;
+const NUM_PREVIEW = 7;
+
 class DiscoverScreen extends Component {
     static propTypes = {
         navigator: PropTypes.object,
@@ -25,10 +27,22 @@ class DiscoverScreen extends Component {
             }
         });
     }
+    onItemPress = ({ index }) => () => {
+        this.props.navigator.showModal({
+            screen: 'v.DesignDetailScreen',
+            passProps: {
+                collection: this.props.collection,
+                index
+            }
+        });
+    }
     renderItem = ({ item }) => {
+        const { navigator } = this.props;
         return <DesignSection
+                navigator={ navigator }
                 label={ item.label }
                 collection={ item.data }
+                onItemPress={ this.onItemPress }
                 onSeeAllPress={ this.onSeeAllPress({ label: item.label }) } />;
     }
     render() {
@@ -55,6 +69,6 @@ export const navObj = {
 
 export default connect(
     state => ({
-        collection: get(state, 'collection.data', [])
+        collection: get(state, 'collection.data', []).slice(0, NUM_PREVIEW)
     })
 )(DiscoverScreen);

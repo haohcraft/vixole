@@ -13,12 +13,22 @@ export default class DiscoverAll extends Component {
     static navigatorStyle = {
         navBarHidden: true
     };
+    onItemPress = ({ index }) => () => {
+        this.props.navigator.showModal({
+            screen: 'v.DesignDetailScreen',
+            passProps: {
+                collection: this.props.items,
+                index,
+                hasPreNext: true
+            }
+        });
+    }
     render() {
         const { items, collectionName, navigator } = this.props;
         return (
             <Screen>
                 <Nav name={ collectionName } navigator={ navigator } />
-                <DesignList items={ items } />
+                <DesignList items={ items } onItemPress={ this.onItemPress } />
             </Screen>
         );
     }

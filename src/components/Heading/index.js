@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import {
     View,
     Text,
-    Image,
-    TouchableOpacity,
+    TouchableOpacity
 } from 'react-native';
-import { iconsMap } from '../../theme/icons';
+import Icon from '../Icon';
 import styles from './style';
 
 const Heading = ({ label, onPress }) => {
@@ -14,9 +13,7 @@ const Heading = ({ label, onPress }) => {
         <View style={ styles.container }>
             <Text style={ styles.text } >{ label }</Text>
             <TouchableOpacity onPress={ onPress } >
-                <Image style={ styles.icon }
-                    resizeMode={ Image.resizeMode.contain }
-                    source={{ uri: iconsMap['ios-arrow-forward'].uri }} />
+                <Icon name='ios-arrow-forward' />
             </TouchableOpacity>
         </View>
     );

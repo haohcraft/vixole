@@ -17,6 +17,10 @@ export const themeVariables = {
         fontSize: 36,
 
     },
+    buttonText: {
+        ...textStyle,
+        fontSize: 26
+    },
     headTitle: {
         ...textStyle,
         fontSize: 24
@@ -30,6 +34,11 @@ export const themeVariables = {
         ...textStyle,
         fontSize: 10,
     },
+    bgRegular: Colors.white,
+    bgTransparent: Colors.transparent,
+    disabledColor: Colors.gray,
+    disabledOpacity: 0.2,
+
 
     featuredColor: Colors.dark10,
     backgroundColor: Colors.dark80,
