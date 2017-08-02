@@ -163,7 +163,7 @@ export const navObj = {
 export default connect(
     (state) => {
         const collection = get(state, 'collection.data', []);
-        const likes = get(state, 'likes');
+        const likes = get(state, 'saved');
         const selectedId = get(state, 'ble.selectedDevice.id');
         const isConnected = get(state, 'ble.selectedDevice.isConnected');
         const selectedDevice = get(state, `ble.devicesMap.${selectedId}`);

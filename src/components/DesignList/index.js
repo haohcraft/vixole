@@ -8,30 +8,31 @@ import DesignSection from '../DesignSection';
 import { widthPercentage } from '../../lib/utils';
 import styles from './style';
 
-const designWidth = widthPercentage(45);
-const itemWidth = designWidth;
 const extractKey = ({ uuid }) => uuid;
 
 export default class DesignList extends Component {
-    renderItem = ({ item, index }) => {
-        const { onItemPress } = this.props;
+    renderItem = numColumns => ({ item, index }) => {
+        const { onItemPress, toggleSave, saved } = this.props;
+        const designWidth = widthPercentage(100 / numColumns) - 15;
         return <DesignItem
             id={ item.uuid }
             name={ item.name }
             source={ item.url }
-            itemWidth={ itemWidth }
+            itemWidth={ designWidth }
+            isSaved={ saved[item.uuid] }
             onItemPress={ onItemPress({ index }) }
+            toggleSave={ toggleSave({ uuid: item.uuid })}
             designWidth={ designWidth } />;
     };
 
     render() {
-        const { items } = this.props;
+        const { items, numColumns = 3 } = this.props;
         return (
             <FlatList
                 data={ items }
                 columnWrapperStyle={ styles.listContainer }
-                numColumns={ 2 }
-                renderItem={ this.renderItem }
+                numColumns={ numColumns }
+                renderItem={ this.renderItem(numColumns) }
                 keyExtractor={ extractKey } />
         );
     }
@@ -39,5 +40,8 @@ export default class DesignList extends Component {
 
 DesignList.propTypes = {
     items: DesignSection.propTypes.collection,
-    onItemPress: PropTypes.func.isRequired
+    onItemPress: PropTypes.func.isRequired,
+    toggleSave: PropTypes.func.isRequired,
+    saved: PropTypes.object.isRequired,
+    numColumns: PropTypes.number
 };

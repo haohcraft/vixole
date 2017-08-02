@@ -2,6 +2,7 @@
 // From https://gist.github.com/dropfen/4a2209d7274788027f782e8655be198f
 import { PixelRatio } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import colors from './colors';
 
 const navIconSize = (__DEV__ === false && Platform.OS === 'android') ? PixelRatio.getPixelSizeForLayoutSize(40) : 40; // eslint-disable-line
 const replaceSuffixPattern = /--(active|big|small|very-big)/g;
@@ -12,7 +13,10 @@ const icons = {
     'ios-image': [30],
     'ios-search': [30],
     'ios-arrow-round-down': [navIconSize],
-    'ios-close': [40]
+    'ios-close': [30],
+    'ios-star-outline': [30],
+    'ios-star': [30, colors.black],
+    'md-star': [30, colors.black],
 };
 
 const iconsMap = {};

@@ -10,7 +10,7 @@ import styles, { sliderWidth } from './style';
 
 export default class DesignSection extends PureComponent {
     getSlides = (entries) => {
-        const { onItemPress } = this.props;
+        const { onItemPress, toggleSave, saved } = this.props;
         const groups = [];
         let group = [];
         entries.forEach((entry, index) => {
@@ -19,7 +19,9 @@ export default class DesignSection extends PureComponent {
                     key={ index }
                     id={ entry.uuid }
                     name={ entry.name }
+                    isSaved={ saved[entry.uuid] }
                     onItemPress={ onItemPress({ index }) }
+                    toggleSave={ toggleSave({ uuid: entry.uuid }) }
                     source={ entry.url } />
             );
             if (group.length === 2) {
@@ -72,6 +74,8 @@ DesignSection.propTypes = {
         name: PropTypes.string.isRequired,
         url: PropTypes.any
     })).isRequired,
+    saved: PropTypes.object.isRequired,
     onSeeAllPress: PropTypes.func.isRequired,
     onItemPress: PropTypes.func.isRequired,
+    toggleSave: PropTypes.func.isRequired
 };

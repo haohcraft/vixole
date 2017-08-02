@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FlatList } from 'react-native';
 import { get } from 'lodash';
-import Nav from './Nav';
+import StaticNav from '../../components/StaticNav';
 import Screen from '../../components/Screen';
+import { DesignItemActions } from '../../components/DesignItem';
 import DesignSection from '../../components/DesignSection';
 
 const extractKey = ({ id }) => id;
@@ -13,7 +14,9 @@ const NUM_PREVIEW = 7;
 class DiscoverScreen extends Component {
     static propTypes = {
         navigator: PropTypes.object,
-        collection: PropTypes.array.isRequired
+        saved: PropTypes.object.isRequired,
+        collection: PropTypes.array.isRequired,
+        toggleSave: PropTypes.func.isRequired
     };
     static navigatorStyle = {
         navBarHidden: true
@@ -23,7 +26,9 @@ class DiscoverScreen extends Component {
             screen: 'v.DiscoverAllScreen',
             passProps: {
                 collectionName: label,
-                items: this.props.collection
+                items: this.props.collection,
+                toggleSave: this.props.toggleSave,
+                saved: this.props.saved
             }
         });
     }
@@ -36,13 +41,18 @@ class DiscoverScreen extends Component {
             }
         });
     }
+    onToggleSave = ({ uuid }) => () => {
+        this.props.toggleSave({ uuid });
+    }
     renderItem = ({ item }) => {
-        const { navigator } = this.props;
+        const { navigator, saved } = this.props;
         return <DesignSection
                 navigator={ navigator }
                 label={ item.label }
                 collection={ item.data }
                 onItemPress={ this.onItemPress }
+                toggleSave={ this.onToggleSave }
+                saved={ saved }
                 onSeeAllPress={ this.onSeeAllPress({ label: item.label }) } />;
     }
     render() {
@@ -53,7 +63,7 @@ class DiscoverScreen extends Component {
         ];
         return (
             <Screen>
-                <Nav />
+                <StaticNav title='discover' />
                 <FlatList
                     data={ rows }
                     renderItem={ this.renderItem }
@@ -69,6 +79,10 @@ export const navObj = {
 
 export default connect(
     state => ({
-        collection: get(state, 'collection.data', []).slice(0, NUM_PREVIEW)
-    })
+        collection: get(state, 'collection.data', []).slice(0, NUM_PREVIEW),
+        saved: get(state, 'saved', {})
+    }),
+    {
+        toggleSave: DesignItemActions.toggleSave
+    }
 )(DiscoverScreen);

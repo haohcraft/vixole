@@ -19,7 +19,7 @@ const ITEMS = [
 /* eslint-enable */
 
 const initialState = {
-    likes: {}
+    saved: {}
 };
 
 const collectionReducer = createAPIReducer({
@@ -29,14 +29,13 @@ const collectionReducer = createAPIReducer({
     }
 });
 
-const likesReducer = (state = initialState.likes, action) => {
+const savedReducer = (state = initialState.saved, action) => {
     switch (action.type) {
-        case ItemActionTypes.LIKE:
-        case ItemActionTypes.REVOKE_LIKE: {
-            const { itemId } = action.payload;
+        case ItemActionTypes.TOGGLE_SAVE: {
+            const { uuid } = action.payload;
             return {
                 ...state,
-                [itemId]: itemReducer({ isLike: state[itemId] }, action).isLike
+                [uuid]: itemReducer({ isSaved: state[uuid] }, action).isSaved
             };
         }
         default:
@@ -46,5 +45,5 @@ const likesReducer = (state = initialState.likes, action) => {
 
 export default {
     collection: collectionReducer,
-    likes: likesReducer
+    saved: savedReducer
 };
