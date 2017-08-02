@@ -8,7 +8,9 @@ export default class DiscoverAll extends Component {
     static propTypes = {
         collectionName: PropTypes.string,
         navigator: PropTypes.object,
-        items: PropTypes.array
+        saved: PropTypes.object,
+        items: PropTypes.array,
+        toggleSave: PropTypes.func
     };
     static navigatorStyle = {
         navBarHidden: true
@@ -23,12 +25,19 @@ export default class DiscoverAll extends Component {
             }
         });
     }
+    onToggleSave = ({ uuid }) => () => {
+        this.props.toggleSave({ uuid });
+    }
     render() {
-        const { items, collectionName, navigator } = this.props;
+        const { items, collectionName, navigator, saved } = this.props;
         return (
             <Screen>
                 <Nav name={ collectionName } navigator={ navigator } />
-                <DesignList items={ items } onItemPress={ this.onItemPress } />
+                <DesignList
+                    items={ items }
+                    saved={ saved }
+                    onItemPress={ this.onItemPress }
+                    toggleSave={ this.onToggleSave } />
             </Screen>
         );
     }

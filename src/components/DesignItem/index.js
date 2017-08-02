@@ -7,7 +7,7 @@ import {
     Image,
     TouchableOpacity
 } from 'react-native';
-
+import Icon from '../Icon';
 import actions from './actions';
 import {
     styleDesignItem,
@@ -21,7 +21,9 @@ const DesignItem = ({
     name,
     onItemPress,
     itemWidth = baseItemWidth,
-    designWidth = baseDesignWidth
+    designWidth = baseDesignWidth,
+    toggleSave,
+    isSaved
 }) => {
     const styleContainer = {
         width: itemWidth,
@@ -45,6 +47,9 @@ const DesignItem = ({
             </View>
             <View style={ styleDesignItem.textContainer }>
                 <Text style={ styleDesignItem.text } >{ name.toUpperCase() }</Text>
+                <TouchableOpacity activeOpacity={ 1 } onPress={ toggleSave } >
+                    <Icon name={ isSaved ? 'ios-star' : 'ios-star-outline'} style={ styleDesignItem.save } />
+                </TouchableOpacity>
             </View>
         </TouchableOpacity>
     );
@@ -54,6 +59,8 @@ DesignItem.propTypes = {
     source: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     onItemPress: PropTypes.func.isRequired,
+    toggleSave: PropTypes.func.isRequired,
+    isSaved: PropTypes.bool.isRequired,
     itemWidth: PropTypes.number,
     designWidth: PropTypes.number
 };

@@ -8,6 +8,7 @@ import { getTheme } from '@shoutem/ui';
 import configureStore from './configureStore';
 import { registerScreens } from './screens';
 import { themeVariables } from './theme';
+import colors from './theme/colors';
 import { navObj as onBoardNavObj } from './screens/Onboard';
 import { iconsLoaded, iconsMap } from './theme/icons';
 import { widthPercentage } from './lib/utils';
@@ -50,7 +51,7 @@ class App extends Component {
 
                 }, {
                     screen: 'v.CollectionScreen',
-                    icon: iconsMap['ios-person'],
+                    icon: iconsMap['md-star'],
                     iconInsets: {
                         top: 6,
                         left: tabIconShift,
@@ -61,6 +62,8 @@ class App extends Component {
                 }
             ],
             tabsStyle: {
+                tabBarButtonColor: colors.gray,
+                tabBarSelectedButtonColor: colors.black,
                 tabBarTranslucent: true,
             }
         });

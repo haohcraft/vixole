@@ -12,14 +12,16 @@ const extractKey = ({ uuid }) => uuid;
 
 export default class DesignList extends Component {
     renderItem = numColumns => ({ item, index }) => {
-        const { onItemPress } = this.props;
+        const { onItemPress, toggleSave, saved } = this.props;
         const designWidth = widthPercentage(100 / numColumns) - 15;
         return <DesignItem
             id={ item.uuid }
             name={ item.name }
             source={ item.url }
             itemWidth={ designWidth }
+            isSaved={ saved[item.uuid] }
             onItemPress={ onItemPress({ index }) }
+            toggleSave={ toggleSave({ uuid: item.uuid })}
             designWidth={ designWidth } />;
     };
 
@@ -39,5 +41,7 @@ export default class DesignList extends Component {
 DesignList.propTypes = {
     items: DesignSection.propTypes.collection,
     onItemPress: PropTypes.func.isRequired,
+    toggleSave: PropTypes.func.isRequired,
+    saved: PropTypes.object.isRequired,
     numColumns: PropTypes.number
 };

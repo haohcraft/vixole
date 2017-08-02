@@ -19,12 +19,17 @@ const styleDesignItem = StyleSheet.create({
         backgroundColor: colors.gray
     },
     textContainer: {
-        justifyContent: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         paddingTop: 6,
         paddingBottom: 0,
         backgroundColor: colors.white
     },
-    text: themeVariables.title
+    text: themeVariables.title,
+    save: {
+        width: 20,
+        height: 20
+    }
 });
 
 const styleMore = StyleSheet.create({

@@ -4,13 +4,16 @@ import { get } from 'lodash';
 import { connect } from 'react-redux';
 import Screen from '../../components/Screen';
 import DesignList from '../../components/DesignList';
+import { DesignItemActions } from '../../components/DesignItem';
 import StaticNav from '../../components/StaticNav';
 import EmptyState from './EmptyState';
 
 class Collection extends Component {
     static propTypes = {
         navigator: PropTypes.object,
-        items: PropTypes.array
+        saved: PropTypes.object,
+        items: PropTypes.array,
+        toggleSave: PropTypes.func
     };
 
     static navigatorStyle = {
@@ -31,14 +34,22 @@ class Collection extends Component {
             tabIndex: 0
         });
     }
+    onToggleSave = ({ uuid }) => () => {
+        this.props.toggleSave({ uuid });
+    }
     render() {
-        const { items } = this.props;
+        const { items, saved } = this.props;
         return (
             <Screen>
                 <StaticNav title='collection' />
                 {
                     items.length ? (
-                        <DesignList items={ items } onItemPress={ this.onItemPress } numColumns={ 2 } />
+                        <DesignList
+                            items={ items }
+                            saved= { saved }
+                            onItemPress={ this.onItemPress }
+                            numColumns={ 2 }
+                            toggleSave={ this.onToggleSave } />
                     ) : (
                         <EmptyState onPress={ this.onAddPress } />
                     )
@@ -49,6 +60,9 @@ class Collection extends Component {
 }
 export default connect(
     state => ({
-        items: get(state, 'collection.data', [])
-    })
+        items: get(state, 'collection.data', []),
+        saved: get(state, 'saved', {}),
+    }), {
+        toggleSave: DesignItemActions.toggleSave
+    }
 )(Collection);
